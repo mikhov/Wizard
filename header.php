@@ -1,21 +1,21 @@
 <?php
 include_once 'assets/core/init.php';
-session_start();
+// session_start();
 
-if($_SESSION['UserObject'] == ""){
-	header("Location: Login.php");
-}else{
+// if($_SESSION['UserObject'] == ""){
+	// header("Location: Login.php");
+// }else{
 	
-		if(time() - $_SESSION['Time'] < 1800){
+		// if(time() - $_SESSION['Time'] < 1800){
 			// Regenerate the time other 30 minutes
-			$_SESSION['Time'] = time();
+			// $_SESSION['Time'] = time();
 			
-			$UserObject = $_SESSION['UserObject'];
-			//print_r($UserObject);
-		}else{
-			header("Location: Login.php?ExpiredSession");
-		}
-}
+			// $UserObject = $_SESSION['UserObject'];
+			// print_r($UserObject);
+		// }else{
+			// header("Location: Login.php?ExpiredSession");
+		// }
+// }
 
 
 ?>
@@ -125,7 +125,7 @@ if($_SESSION['UserObject'] == ""){
                                 
                                 
                     </li> <!-- end dropdown -->
-                    <li id="UserNameTopHeader">Welcome, <?php echo $UserObject['Name']; ?> </li>
+                    <li id="UserNameTopHeader">Welcome, <?php //echo $UserObject['Name']; ?> </li>
             	</ul>          
             </div>
 			
@@ -353,3 +353,6 @@ if($_SESSION['UserObject'] == ""){
       </aside>
       <!--sidebar end-->
 	  <a href="#" class="scrollToTop"></a>
+	  
+     <section id="main-content">
+<section class="wrapper">	  
