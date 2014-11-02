@@ -352,7 +352,4 @@ include_once 'assets/core/init.php';
           </div>
       </aside>
       <!--sidebar end-->
-	  <a href="#" class="scrollToTop"></a>
-	  
-     <section id="main-content">
-<section class="wrapper">	  
+	  <a href="#" class="scrollToTop"></a>	  
