@@ -1,6 +1,8 @@
 <?php
 include('header.php');
 ?>
+<section id="main-content">
+	<section class="wrapper">
     <!--main content start-->
 
       <!-- HERE IS WHERE IS NECESSARY TO INCLUDE THE CONTENT -->
@@ -8,6 +10,8 @@ include('header.php');
       <h1>This is the page of Form Create</h1>
 
 	<!--main content end-->
+	</section>
+</section>	
 	
 	<?php	include('include.php');	?>
 

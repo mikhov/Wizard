@@ -1,7 +1,8 @@
 <?php
 include('header.php');
 ?>
-
+<section id="main-content">
+	<section class="wrapper"> 
 	<!--main content start-->
    	<!-- INCLUDE THE CODE HERE -->
 	
@@ -29,6 +30,8 @@ include('header.php');
 	
 	
 	<!--main content end-->
+	</section>
+</section>
 	
 	<?php	include('include.php');	?>
 

@@ -1,7 +1,9 @@
 <?php
 include('header.php');
 ?>
-      
+<section id="main-content">
+	<section class="wrapper">      
+	
 	<!--main content start-->
 
         <h3><i class="fa fa-angle-right"></i> Calendar</h3>
@@ -44,7 +46,10 @@ include('header.php');
             </div>
             <!-- page end-->
 	<!--main content end-->	
-
+	</section>
+</section>
+	
+	
 	<?php	include('include.php');	?>
 	
     <!--script for this page-->

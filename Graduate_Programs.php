@@ -1,7 +1,8 @@
 <?php
 include('header.php');
 ?>
-      
+<section id="main-content">
+	<section class="wrapper">       
     <!--main content start-->
 
       <!-- HERE IS WHERE IS NECESSARY TO INCLUDE THE CONTENT -->
@@ -10,6 +11,8 @@ include('header.php');
       <h1>This is my graduate page</h1>
 	
 	<!--main content end-->
+	</section>
+</section>		
 	
 	<?php	include('include.php');	?>
 	
