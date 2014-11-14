@@ -48,6 +48,17 @@ class Query {
 		return self::Execute( $statement );
 	}
 	
+	public function MultiSelect( $tables, $columns, $conditions = null ){
+		$result = [];
+		if( is_array( $tables ) && is_array( $columns ) ){
+			foreach( $tables as $i => $table ){
+				$re = self::Select( $table, $columns[$i], $conditions[$i] );
+				array_push( $result, $re );
+			}
+		}
+		return $result;
+	}
+	
 	public function Select( $table, $columns, $condition = null ){
 		$statement  = "SELECT " . implode( ", ", $columns );
 		$statement .= " FROM " . $table . " WHERE 1 ";
