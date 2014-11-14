@@ -39,8 +39,12 @@ class Query {
 	public function Insert( $table, $columns, $values ){
 		$statement  = "INSERT INTO " . $table . " (";
 		$statement .= implode( ", ", $columns ) . ") VALUES (";
-		$statement .= implode( ", ", $values ) . ")";
-
+		
+		if( is_array( $values ) ){
+			$statement .= implode( ", ", $values ) . ")";
+		} else {
+			$statement .= $values . ")";
+		}
 		return self::Execute( $statement );
 	}
 	
@@ -56,8 +60,8 @@ class Query {
 	
 	public function Update( $table, $columns, $values, $condition ){
 		$statement  = "UPDATE " . $table . " SET ";
-		$statement .= self::buildWhere( $columns, $values );
-		$statement .= implode( ", ", $columns ) . " WHERE 1 ";
+		$statement .= implode( ", ", self::buildWhere( $columns, $values ) ) . " WHERE 1 ";
+		// $statement .= implode( ", ", $columns ) . " WHERE 1 ";
 		if( !is_null( $condition ) ){
 			$statement .= "AND " . implode( " AND ", $condition );
 		}		
@@ -69,7 +73,8 @@ class Query {
 		$statement  = "DELETE FROM " . $table . " WHERE 1 ";
 		$statement .= "AND " . implode( " AND ", self::buildWhere( $columns, $values ) );
 		
-		return self::Execute( $statement );	
+		// return self::Execute( $statement );	
+		return $statement;
 	}
 	
 	public function buildWhere( $columns, $values ){
@@ -82,12 +87,28 @@ class Query {
 		return $columns;
 	}
 	
+	public function Sort( $table, $columns, $condition = null, $row, $order, $start = null, $limit = null ){
+		$statement  = "SELECT " . implode( ", ", $columns );
+		$statement .= " FROM " . $table . " WHERE 1 ";
+		if( !is_null( $condition ) ){
+			$statement .= "AND " . implode( " AND ", $condition );
+		}
+		if( !is_null( $row ) && !is_null( $order ) ){
+			$statement .= " ORDER BY " . $row . " " . $order;
+		}
+		if( !is_null( $start ) && !is_null( $limit ) ){
+			$statement .= " LIMIT " . $start . ", " .$limit;
+		}
+		
+		return self::Execute( $statement );	
+	}
+	
 	public function Execute( $query ){
 		
 		try{
 			$sql = $this->db->prepare( $query );	
 			$sql->execute();
-			$result = $sql->fetch(PDO::FETCH_ASSOC);
+			$result = $sql->fetchAll(PDO::FETCH_ASSOC);
 		} catch( PDOException $e ) {
 			//error_log("Error message: " . $e->getMessage() . "\n", 3, "/mypath/php.log");
 		}

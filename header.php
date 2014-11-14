@@ -74,6 +74,7 @@ include_once 'assets/core/init.php';
 					<ul>
 						<li><a href='Students.php'><span>Students</span></a></li>
 						<li><a href='Faculties.php'><span>Faculties</span></a></li>
+						<li><a href='UserMangerFrame.php'><span>Permission Manager</span></a></li>
 					</ul>				   
 				   </li>
 				</ul>
@@ -303,7 +304,7 @@ include_once 'assets/core/init.php';
                       <ul class="sub">
                           <li><a  href="Students.php">Students</a></li>
                           <li><a  href="Faculties.php">Faculties</a></li>
-                         
+                          <li><a  href="UserMangerFrame.php">Permission Manager</a></li>
                       </ul>
                   </li>
 
