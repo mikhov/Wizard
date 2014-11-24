@@ -80,12 +80,11 @@ class Query {
 		self::Execute( $statement );
 	}
 	
-	public function Delete( $table, $columns, $values ){
+	public function Delete( $table, $columns, $values, $noConstraint ){
 		$statement  = "DELETE FROM " . $table . " WHERE 1 ";
 		$statement .= "AND " . implode( " AND ", self::buildWhere( $columns, $values ) );
 		
-		// return self::Execute( $statement );	
-		return $statement;
+		return self::Execute( $statement, $noConstraint );	
 	}
 	
 	public function buildWhere( $columns, $values ){
@@ -114,15 +113,25 @@ class Query {
 		return self::Execute( $statement );	
 	}
 	
-	public function Execute( $query ){
+	public function Execute( $query, $noConstraint = 0 ){
+		
+		//$noConstraint = 1 : execute without foreign key check
+		if( $noConstraint === 1 ){
+			$query = 'SET foreign_key_checks = 0;' . $query;
+		}
 		
 		try{
 			$sql = $this->db->prepare( $query );	
 			$sql->execute();
 			$result = $sql->fetchAll(PDO::FETCH_ASSOC);
+			
+			$sql = $this->db->prepare( "SET foreign_key_checks = 1;" );	
+			$sql->execute();			
 		} catch( PDOException $e ) {
 			//error_log("Error message: " . $e->getMessage() . "\n", 3, "/mypath/php.log");
 		}
+		
+		
 
 		return $result;
 	}
