@@ -1,5 +1,5 @@
 <?php
-/*
+
 include_once 'assets/core/init.php';
  session_start();
 
@@ -16,7 +16,7 @@ include_once 'assets/core/init.php';
 			 header("Location: Login.php?ExpiredSession");
 		 }
 }
-*/
+
 
 ?>
 
