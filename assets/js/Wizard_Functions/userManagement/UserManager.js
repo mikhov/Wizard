@@ -84,6 +84,15 @@
 						});				
 				}
 			})
+			.on('changed.jstree', function (e, data) {
+				if(data && data.selected && data.selected.length && data.selected[0] != 'j1_1') {
+					$("#list").setGridParam({'postData' : 'groupId=' + data.selected[0]});
+					$("#list").trigger("reloadGrid");
+				} else {
+					$("#list").setGridParam({'postData' : ''});
+					$("#list").trigger("reloadGrid");
+				}
+			})
 		
 		var u = "Student Name"	
 		//User list grid view		
@@ -122,9 +131,9 @@
 			refresh:true,
 			searchoptions: {left: '30%'}
 		});
-		 var left = $('body').width() * 0.3;
-		 $("#search_list").click(function(){
+
+		$("#search_list").click(function(){
 			$("#searchmodfbox_list").css( "left", "30%" );
-		 });
+		});
 		 
 	});
