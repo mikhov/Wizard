@@ -21,12 +21,15 @@ class Courses
 		
 		$resultStudent = array();
 		
-		$getStudentCourse = $this->_db->prepare("SELECT *
-													FROM STUDENT AS t1, STUDENT_REGISTRATION AS t2, CLASS AS t3, COURSE AS t4
-													WHERE t1.Student_Id=? 
-															AND t1.Student_Id=t2.Student_Id 
-															AND t2.ClassID=t3.ClassID 
-															AND t3.CourseID=t4.CourseID");
+		
+		
+		$getStudentCourse = $this->_db->prepare("SELECT * FROM STUDENT AS t1, STUDENT_REGISTRATION AS t2, CLASS AS t3, COURSE AS t4
+												WHERE t1.Student_Id=?
+													AND t1.Student_Id=t2.Student_Id 
+													AND t2.ClassID=t3.ClassID 
+													AND t3.CourseID=t4.CourseID
+												ORDER BY t4.CourseNumber;"
+												);
 															
 															
 															
@@ -41,14 +44,7 @@ class Courses
 				while($result_Students = $getStudentCourse->fetch(PDO::FETCH_ASSOC)){
 					
 														
-															
-															
-															
-															
-															
-															
-															
-															
+										
 														
 					//////// THIS IS THE COURSE INFO FOR EACH STUDENT
 					
@@ -66,12 +62,12 @@ class Courses
 					
 					
 					//////// THIS IS THE STUDENT INFO FROM DATABASE
-					
-			$Student_Id 			= (isset($result_Students['Student_Id']) ? $result_Students['Student_Id'] : null);
-			$Name_Last			 	= (isset($result_Students['Name_Last']) ? $result_Students['Name_Last'] : null);
-			$Name_First 			= (isset($result_Students['Name_First']) ? $result_Students['Name_First'] : null);
-			$Tu_Id 					= (isset($result_Students['Tu_Id']) ? $result_Students['Tu_Id'] : null);
-			$Expected_Graduation_Date = (isset($result_Students['Expected_Graduation_Date']) ? $result_Students['Expected_Graduation_Date'] : null);
+							
+					$Student_Id 			= (isset($result_Students['Student_Id']) ? $result_Students['Student_Id'] : null);
+					$Name_Last			 	= (isset($result_Students['Name_Last']) ? $result_Students['Name_Last'] : null);
+					$Name_First 			= (isset($result_Students['Name_First']) ? $result_Students['Name_First'] : null);
+					$Tu_Id 					= (isset($result_Students['Tu_Id']) ? $result_Students['Tu_Id'] : null);
+					$Expected_Graduation_Date = (isset($result_Students['Expected_Graduation_Date']) ? $result_Students['Expected_Graduation_Date'] : null);
 					$Email_Type_Address 				= (isset($result_Students['Email_Type_Address']) ? $result_Students['Email_Type_Address'] : null);
 					$Gender 							= (isset($result_Students['Gender']) ? $result_Students['Gender'] : null);
 					$Address_Street_Line1 			= (isset($result_Students['Address_Street_Line1']) ? $result_Students['Address_Street_Line1'] : null);
@@ -92,18 +88,18 @@ class Courses
 					$Grade_Points_G 					= (isset($result_Students['Grade_Points_G']) ? $result_Students['Grade_Points_G'] : null);
 					$GPA_G 								= (isset($result_Students['GPA_G']) ? $result_Students['GPA_G'] : null);
 					$Overral_Hours_Passed_G 	= (isset($result_Students['Overral_Hours_Passed_G']) ? $result_Students['Overral_Hours_Passed_G'] : null);
-								
-			$Transfer_Hours_G 		 = (isset($result_Students['Transfer_Hours_G']) ? $result_Students['Transfer_Hours_G'] : null);
-			$Cumulative_Credits_G = (isset($result_Students['Cumulative_Credits_G']) ? $result_Students['Cumulative_Credits_G'] : null);
-			$Cumulative_Quality_Points_G = (isset($result_Students['Cumulative_Quality_Points_G']) ? $result_Students['Cumulative_Quality_Points_G'] : null);
-			$Registration_Status_Date 	= (isset($result_Students['Registration_Status_Date']) ? $result_Students['Registration_Status_Date'] : null);
-			$Hours_Registerd 	= (isset($result_Students['Hours_Registerd']) ? $result_Students['Hours_Registerd'] : null);
-			$College_1_Description = (isset($result_Students['Registration_Status_Date']) ? $result_Students['Registration_Status_Date'] : null);
-	$Program_1			= (isset($result_Students['Program_1']) ? $result_Students['Program_1'] : null);
-	$Level_1_Code				= (isset($result_Students['Level_1_Code']) ? $result_Students['Level_1_Code'] : null);
-	$Degree_1_Code				= (isset($result_Students['Degree_1_Code']) ? $result_Students['Degree_1_Code'] : null);
-	$Curriculum1_1				= (isset($result_Students['Curriculum1_1']) ? $result_Students['Curriculum1_1'] : null);
-	$College_1_Description	= (isset($result_Students['College_1_Description']) ? $result_Students['College_1_Description'] : null);
+										
+					$Transfer_Hours_G 		 = (isset($result_Students['Transfer_Hours_G']) ? $result_Students['Transfer_Hours_G'] : null);
+					$Cumulative_Credits_G = (isset($result_Students['Cumulative_Credits_G']) ? $result_Students['Cumulative_Credits_G'] : null);
+					$Cumulative_Quality_Points_G = (isset($result_Students['Cumulative_Quality_Points_G']) ? $result_Students['Cumulative_Quality_Points_G'] : null);
+					$Registration_Status_Date 	= (isset($result_Students['Registration_Status_Date']) ? $result_Students['Registration_Status_Date'] : null);
+					$Hours_Registerd 	= (isset($result_Students['Hours_Registerd']) ? $result_Students['Hours_Registerd'] : null);
+					$College_1_Description = (isset($result_Students['Registration_Status_Date']) ? $result_Students['Registration_Status_Date'] : null);
+					$Program_1			= (isset($result_Students['Program_1']) ? $result_Students['Program_1'] : null);
+					$Level_1_Code				= (isset($result_Students['Level_1_Code']) ? $result_Students['Level_1_Code'] : null);
+					$Degree_1_Code				= (isset($result_Students['Degree_1_Code']) ? $result_Students['Degree_1_Code'] : null);
+					$Curriculum1_1				= (isset($result_Students['Curriculum1_1']) ? $result_Students['Curriculum1_1'] : null);
+					$College_1_Description	= (isset($result_Students['College_1_Description']) ? $result_Students['College_1_Description'] : null);
 					
 					
 					

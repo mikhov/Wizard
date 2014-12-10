@@ -11,6 +11,7 @@
     #unseen table th:nth-child(7),
     #unseen table td:nth-child(8),
     #unseen table th:nth-child(8){display: none;}
+	
 }
 
 /*flip-scroll*/

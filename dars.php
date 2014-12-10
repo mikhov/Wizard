@@ -35,15 +35,15 @@ include('header.php');
                                 </ul>
                             </td>
                             <td>
-                                <ul class="ResultlabelDars">
-                                    <li>Juan Huertas-Fernandez</li>
-                                    <li>juanitohf </li>
-                                    <li>915049363</li>
-                                    <li>CIS</li>
-                                    <li>MATH</li>
-                                    <li>05/05/2010 </li>
-                                    <li>12/18/2014</li>
-                                    <li>tue89164</li>
+                                <ul>
+                                    <li id='fullName'></li>
+                                    <li>Nickname</li>
+                                    <li id='Student_TuID'></li>
+                                    <li id='StudentProgram'></li>
+                                    <li>Program2</li>
+                                    <li>Program Start Date</li>
+                                    <li id='ExpectedGraduation'></li>
+                                    <li id='StudentEmail'></li>
                                 </ul>
                             </td>
                             <td>
@@ -55,19 +55,17 @@ include('header.php');
                                     <li>Cumulative Credits:</li>
                                     <li>Cumulative Quality Points: </li>
                                     <li>Number of Credits Registered: </li>
-									<li>Special programs:</li>
                                 </ul>
                             </td>
                             <td>
-                                <ul class="ResultlabelDars">
-                                    <li>86 hours </li>
-                                    <li>86 hours</li>
-                                    <li>3.64 </li>
-                                    <li>3.64 </li>
-                                    <li>3.64</li>
-                                    <li>34</li>
-                                    <li>126</li>
-										<li>I do not know what this mean</li>
+                                <ul>
+                                    <li id='HoursAttempted'></li>
+                                    <li id='HoursPassed'></li>
+                                    <li id='GPA'></li>
+                                    <li id='TransferHours'></li>
+                                    <li id='CumulateCredits'></li>
+                                    <li id='CumulativeQP'></li>
+                                    <li id='CreditsRegistered'></li>
                                 </ul>
                             </td>
                         </tr>
@@ -91,13 +89,19 @@ include('header.php');
                
  <ul id="myTab" class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#list-1-tabs-1" id="classes-tab" role="tab" data-toggle="tab" aria-controls="list-1-tabs-1" aria-expanded="false">Current Classes</a></li>
+	  
       <li role="presentation"><a href="#list-1-tabs-2" role="tab" id="complete-tab" data-toggle="tab" aria-controls="list-1-tabs-2">Completed</a></li>
       
-      <li role="presentation"><a href="#list-1-tabs-3" role="tab" id="RCourses-tab" data-toggle="tab" aria-controls="list-1-tabs-3">Required Courses</a></li>
+      <li role="presentation"><a href="#list-1-tabs-3" role="tab" id="RCourses-tab" data-toggle="tab" aria-controls="list-1-tabs-3">Core Courses</a></li>
+	  
+	  <li role="presentation"><a href="#list-1-tabs-6" role="tab" id="Didactic-tab" data-toggle="tab" aria-controls="list-1-tabs-6">Didactic Courses</a></li>
       
-        <li role="presentation"><a href="#list-1-tabs-4" role="tab" id="Requirements-tab" data-toggle="tab" aria-controls="list-1-tabs-4">Requirements Remaining</a></li>
+      <li role="presentation"><a href="#list-1-tabs-4" role="tab" id="Requirements-tab" data-toggle="tab" aria-controls="list-1-tabs-4">Core Remaining</a></li>
         
-        <li role="presentation"><a href="#list-1-tabs-5" role="tab" id="Transfer-tab" data-toggle="tab" aria-controls="list-1-tabs-5">Transfer</a></li>
+      <li role="presentation"><a href="#list-1-tabs-5" role="tab" id="Transfer-tab" data-toggle="tab" aria-controls="list-1-tabs-5">Transfer</a></li>
+		
+
+		
       
       
     </ul>
@@ -117,24 +121,91 @@ include('header.php');
       </div>
       
       <div role="tabpanel" class="tab-pane fade" id="list-1-tabs-2" aria-labelledby="complete-tab">
-       	 <p>The completed section.</p>
-        <p>This will display a list of the classes a student has completed.</p>
+			
+			<table class="table table-striped"> 
+				<tr class = "danger"> 
+					<td> Course Name </td>
+					<td> Course Number </td>
+					<td> Section Number </td>
+					<td> Student Grade </td>
+					<td> Course Description </td>
+					<td> Course Start Date </td>			
+				</tr>
+			
+				<tbody id="CourseInformation">	
+				<!--- Info filled with AJAX/Jquery				--->
+				</tbody>	
+			</table>
+			
+			
+			
       </div>
       
        <div role="tabpanel" class="tab-pane fade" id="list-1-tabs-3" aria-labelledby="RCourses-tab">
-        	<p>The required courses section.</p>
-        	<p>This section will display the courses a student is required to take for their track or program.</p>
+	   
+			<table class="table table-striped"> 
+				<tr class = "danger"> 
+					<td> Course Number </td>
+					<td> Course Name </td>
+					<td> Course Description </td>
+				</tr>
+			
+			<tbody id="RequiredCoursesInfo">	
+				<!--- Info filled with AJAX/--->
+			</tbody>
+			</table>
       </div>
       
       <div role="tabpanel" class="tab-pane fade" id="list-1-tabs-4" aria-labelledby="Requirements-tab">
-        	<p>The remaining requirements section.</p>
-           <p>This section will display the courses a student still needs to take for their track or program.</p>
+			<table class="table table-striped"> 
+				<tr class = "danger"> 
+					<td> Course Number </td>
+					<td> Course Name </td>
+					<td> Course Description </td>
+				</tr>
+			
+			<tbody id="CourseRemaining">	
+				<!--- Info filled with AJAX/--->
+				
+			</tbody>
+			</table>
+			
       </div>
-      
-      
+	  
+	  <div role="tabpanel" class="tab-pane fade" id="list-1-tabs-6" aria-labelledby="Didactic-tab">
+		<p> Select five, but choose at most four for inclusion in Qualifying Exam: </p>
+			<table class="table table-striped"> 
+				<tr class = "danger"> 
+					<td> Course Number </td>
+					<td> Course Name </td>
+					<td> Course Description </td>
+				</tr>
+			
+			<tbody id="DidacticCourses">	
+				<!--- Info filled with AJAX/--->
+				
+			</tbody>
+			</table>
+		   
+      </div>
+	  
        <div role="tabpanel" class="tab-pane fade" id="list-1-tabs-5" aria-labelledby="Transfer-tab">
         	<p>The transfer section.</p>
            <p>This section will display a list the student's tranfered classes if they have any.</p>
+		   
+		   <table class="table table-striped"> 
+				<tr class = "danger"> 
+					<td> Course Number </td>
+					<td> Course Name </td>
+					<td> Course Description </td>
+				</tr>
+			
+			<tbody id="">	
+				<!--- Info filled with AJAX/--->
+				
+			</tbody>
+			</table>
+		   
       </div>
       
       

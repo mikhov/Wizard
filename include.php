@@ -9,6 +9,7 @@
 
     <!--common script for all pages-->
     <script src="assets/js/common-scripts.js"></script>
+    <script src="assets/js/Wizard_Functions/header.js"></script>
      
 	</body>
 </html>

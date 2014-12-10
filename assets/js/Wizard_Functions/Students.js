@@ -189,6 +189,17 @@ var displayTempleStudents = function(){
 													
                                             			'<i class="fa fa-eye"></i>'+
                                             		'</button>'+
+													
+													
+											
+														'<button class="btn btn-white btn-xs btnSeparation" title="Add notes" data-toggle="modal" data-target="#AddNotesStudentModal" onclick="modalAddNotes('+Student_Id[i]+',\''+Name_First[i]+'\',\''+Name_Last[i]+'\');" >'+
+                                                    	'<i class="fa fa-comments"></i>'+
+                                                	'</button>'+
+													
+													
+													
+													
+													
                                                 '</td>'+
                                             '</tr>'
 								 
@@ -803,11 +814,250 @@ var deleteStudentForm = function(Form_Student_Id,Student_Id){
 			return false;
 			  
 		
-		
-		
-	
-	
-	
 	
 	
 } // End deleteStudentForm;
+
+
+
+
+
+var modalAddNotes = function(Student_Id,Name_First,Name_Last){
+	display_Student_Notes(Student_Id);
+	$('#Student_Id_Comment').val(Student_Id);
+	$('#StudentComment').val("");
+	
+} // end modalAddNotes
+	
+	 
+	 
+	 
+	 
+$('#btnAddComment').click(function(){
+	
+	 
+	 var Note_Description = $('#StudentComment').val();
+	 var Student_Id 		= $('#Student_Id_Comment').val();
+	
+	 
+	 
+	 
+	 if( $('#StudentComment').val() == "" ||  $('#StudentComment').val() == null){
+		 	
+				  // Empty the box message
+				$('#boxMessageModal').html("");
+				  // Introduce the new message
+				$('#boxMessageModal').html("Please insert a comment before submit it.");
+				  //Execute the modal box
+				$('#modalExpiration').click();
+				$('#StudentComment').focus();
+				
+				
+		}
+	else{
+		
+			 var Note_Description = $('#StudentComment').val();
+		 	 var Student_Id 		= $('#Student_Id_Comment').val();
+
+			 var dataString = 'Note_Description='+Note_Description+'&Student_Id='+Student_Id+'&AddStudentNote=true';
+				
+			$.ajax({
+				  type: "POST",
+				  url: "assets/php/functionStudents.php",
+				  data: dataString,
+				  dataType:"Json",
+				  success: function(data) {
+					  
+					  
+					  if (data.Status == 'success'){
+							$('#StudentComment').val("");
+							display_Student_Notes(Student_Id);
+	
+					  }else if(data.Status == 'No_Results'){
+						   $('#loading').hide();
+						   
+						   
+						  $('#StudentComment').val("");
+						  
+						  
+					  }else{
+						  $('#StudentComment').val("");
+						  
+						   $('#loading').hide();
+						  // Empty the box message
+							$('#boxMessageModal').html("");
+							  // Introduce the new message
+							$('#boxMessageModal').html("Error creating the comment, please contact with the administrator. Dr. Shi");
+							  //Execute the modal box
+							 $('#modalExpiration').click();
+						  
+						  }
+						 
+				  },
+				  error: function (XMLHttpRequest, textStatus, errorThrown) {
+					if (textStatus == 'Unauthorized') {
+						 hideLoginModal();
+						alert('custom message. Error: ' + errorThrown);
+					} else {
+						 hideLoginModal();
+						alert('custom message. Error: ' + errorThrown);
+					}
+				}
+
+			});
+			return false;
+	 
+		
+		
+		
+		}	  /// End else condition
+	 
+	 
+
+}); 
+
+
+
+
+
+
+
+
+
+
+	
+var display_Student_Notes = function(Student_Id){
+
+		
+		var dataString = 'Student_Id='+Student_Id+'&DisplayStudentNotes=true';
+				
+			$.ajax({
+				  type: "POST",
+				  url: "assets/php/functionStudents.php",
+				  data: dataString,
+				  dataType:"Json",
+				  success: function(data) {
+					  if (data.Status == 'success'){
+							hideLoginModal();
+						
+						
+							/// GET THE JSON VALUES THAT IT RETURN FROM SERVER
+							var Student_Note_Id  				= data.Student_Note_Id;
+						 	var Note_Description 				= data.Note_Description;
+							var Note_Date_MySQL  				= data.Note_Date_MySQL;
+						 	var Note_Date 						= data.Note_Date;
+							var Student_Id  					= data.Student_Id;
+						 	
+						
+							
+						
+							/// RESET THE DOM TO NOT OVERWRITE
+						
+							$('#bodyStudentsComments').html("");
+						
+						
+							/// INSERT ALL VALUES INTO THE DOM 
+							for(var i in Student_Note_Id){
+								
+							
+								
+								$('#bodyStudentsComments').append(
+								
+									 '<tr>'+
+                                     '<td>'+Note_Description[i]+'</td>'+
+                                     '<td>'+Note_Date[i]+'</td>'+
+                                     '<td class="centerColumn">'+
+                                           '<a href="javascript:deleteStudentComment('+Student_Note_Id[i]+','+Student_Id[i]+')"><i class="glyphicon glyphicon-remove-circle red"></i></a>'+
+                                     '</td>'+
+                                  '</tr>'
+									
+								);
+								
+							
+							} // End for loop
+	
+					  
+					  }else{
+						  $('#loading').hide();
+						  $('#bodyStudentsComments').html("");
+						  
+						  }
+						 
+				  },
+				  error: function (XMLHttpRequest, textStatus, errorThrown) {
+					if (textStatus == 'Unauthorized') {
+						 hideLoginModal();
+						alert('custom message. Error: ' + errorThrown);
+					} else {
+						 hideLoginModal();
+						alert('custom message. Error: ' + errorThrown);
+					}
+				}
+
+			});
+			return false;
+			  
+		
+		
+		
+	} /// End function display Forms
+
+
+
+
+
+
+
+
+	
+var deleteStudentComment = function(Student_Note_Id,Student_Id){
+
+		
+		var dataString = 'Student_Note_Id='+Student_Note_Id+'&DeleteStudentComment=true';
+				
+			$.ajax({
+				  type: "POST",
+				  url: "assets/php/functionStudents.php",
+				  data: dataString,
+				  dataType:"Json",
+				  success: function(data) {
+					  if (data.Status == 'success'){
+						  
+							hideLoginModal();
+							display_Student_Notes(Student_Id);
+						
+					
+					  }else{
+						  $('#loading').hide();
+						 
+						   $('#loading').hide();
+						  // Empty the box message
+							$('#boxMessageModal').html("");
+							  // Introduce the new message
+							$('#boxMessageModal').html("Error deleting the comment, please contact with the administrator. Dr. Shi");
+							  //Execute the modal box
+							 $('#modalExpiration').click();
+						 
+						 
+						  
+						  }
+						 
+				  },
+				  error: function (XMLHttpRequest, textStatus, errorThrown) {
+					if (textStatus == 'Unauthorized') {
+						 hideLoginModal();
+						alert('custom message. Error: ' + errorThrown);
+					} else {
+						 hideLoginModal();
+						alert('custom message. Error: ' + errorThrown);
+					}
+				}
+
+			});
+			return false;
+			  
+		
+		
+		
+	} /// End function display Forms
+

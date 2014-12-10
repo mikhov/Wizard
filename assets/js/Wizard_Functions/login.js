@@ -11,8 +11,6 @@ $('#login_btn').click(function(){
 	
 	
 	
-	
-	
 	//// CHECK IF WE HAVE INTERNET CONNECTION
 	if(checkNetConnection()){
 	

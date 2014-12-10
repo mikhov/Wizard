@@ -64,16 +64,16 @@ var displayForms = function(){
                                            '<div class="rightLineBodyContainer">'+
 										   
 											   			  '<a href="'+Form_Path[i]+'" target="_blank">'+
-                                                      '<span class="glyphicon glyphicon-cloud-download gray"></span>'+
+                                                      '<span class="glyphicon glyphicon-cloud-download blue"></span>'+
                                                     '</a>'+
 													
                                                     
                                                     '<a href="javascript:openFileModal(\''+Form_Path[i]+'\');" >'+
-                                                      '<span class="glyphicon glyphicon-eye-open gray"></span>'+
+                                                      '<span class="glyphicon glyphicon-eye-open green"></span>'+
                                                     '</a>'+
                                                     
                                                     '<a href="javascript:deleteForm('+Form_ID[i]+');" >'+
-                                                      '<span class="glyphicon glyphicon-remove-circle gray"></span>'+
+                                                      '<span class="glyphicon glyphicon-remove-circle red"></span>'+
                                                     '</a>'+
                                                  
                                             '</div>'+
@@ -85,7 +85,7 @@ var displayForms = function(){
 							} // End for loop
 	
 					  }else{
-						 
+						 /*
 						   $('#loading').hide();
 						  // Empty the box message
 							$('#boxMessageModal').html("");
@@ -93,7 +93,7 @@ var displayForms = function(){
 							$('#boxMessageModal').html("Error displaying Forms, please contact with the administrator. Dr. Shi");
 							  //Execute the modal box
 							 $('#modalExpiration').click();
-						  
+						  */
 						  }
 						 
 				  },
@@ -168,16 +168,16 @@ $('#searchFormBtn').click(function(){
                                            '<div class="rightLineBodyContainer">'+
 										   
 											   			  '<a href="'+Form_Path[i]+'" target="_blank">'+
-                                                      '<span class="glyphicon glyphicon-cloud-download gray"></span>'+
+                                                      '<span class="glyphicon glyphicon-cloud-download blue"></span>'+
                                                     '</a>'+
 													
                                                     
                                                     '<a href="javascript:openFileModal(\''+Form_Path[i]+'\');" >'+
-                                                      '<span class="glyphicon glyphicon-eye-open gray"></span>'+
+                                                      '<span class="glyphicon glyphicon-eye-open green"></span>'+
                                                     '</a>'+
                                                     
                                                     '<a href="javascript:;" >'+
-                                                      '<span class="glyphicon glyphicon-edit gray"></span>'+
+                                                      '<span class="glyphicon glyphicon-edit red"></span>'+
                                                     '</a>'+
                                                  
                                             '</div>'+

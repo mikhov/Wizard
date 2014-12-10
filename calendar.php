@@ -69,7 +69,7 @@ include('header.php');
                     		<div class="lineEvents">
                             
                             <!-- HIDE INPUT TO STORE THE USER_ID -->
-                            <input type="hidden" value="<?php if(isset($UserObject['TU_ID'])){echo $UserObject['TU_ID'];}else{ echo 915049363;} ?>" id="EventTuIdInput">
+                            <input type="hidden" value="<?php if(isset($UserObject['TU_ID'])){echo $UserObject['TU_ID'];}?>" id="EventTuIdInput">
                             <input type="button" class="btn btn-danger" value="Create Event" id="BtnEventInsert">
                          </div> <!-- end lineEvents -->
                         

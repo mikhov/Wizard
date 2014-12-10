@@ -5,8 +5,6 @@ include('header.php');
 
    <section class="containerHorizontal">
             
-            
-            
             	 <div class="leftPanel">
                  
                  		<div class="headerTable">
@@ -14,7 +12,7 @@ include('header.php');
                           <h4 id="titleMemberTable">Temple Students</h4>
                                 <div class="input-group inputSeparation">
                                   <span class="input-group-addon addonWidth"><i class="fa fa-filter"></i></span>
-                                 	 <input type="text" class="form-control inputWidth" id="nameFilter" placeholder="Students Filter">
+                                 	<input type="text" class="form-control inputWidth" id="nameFilter" placeholder="Students Filter">
                                 </div>
 	                  	  	  <hr>
                               
@@ -37,10 +35,12 @@ include('header.php');
                        
                        <div class="bodyTable">
                        	<div id="bodyTableFull">
+                        
                         			<table class="table table-striped table-advance table-hover draggable">
                                      <tbody class="searchable" id="StudentTable">
-                                    
-                                          <!-- DISPLAY INFO WITH AJAX -->
+                                     
+                                     	<!-- DISPLAY INFO WITH AJAX -->
+                                        
                                      </tbody>
                                  </table>
                                
@@ -368,6 +368,68 @@ include('header.php');
                             <iframe src="" id="iframe"></iframe>
                     </div>
                </div> 
+
+
+
+
+			
+ 			
+     <!-- Modal WINDOWS TO ADD NOTES FOR EACH STUDENTS -->
+                    <div class="modal" id="AddNotesStudentModal" tabindex="-1" role="dialog" aria-labelledby="AddNotesStudentModal" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header" id="HeaderModal">
+                            <button type="button" class="close" data-dismiss="modal">
+                            			<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title"> Student Notes <i class="fa fa-comments"></i></h4>
+                          </div>
+                          
+                              <div class="modal-body">
+                              
+                              <div class="addCommentBox">
+                              	<textarea class="textAreaComments" placeholder="Add new Comment here ...." id="StudentComment"></textarea>
+                                 <input type="hidden" id="Student_Id_Comment">
+                            		<button type="button" class="btn btn-danger maringBtn" id="btnAddComment">Add Comment</button>
+                              </div>
+                              
+                              <hr>
+                          			
+                                    <table class="table table-striped">
+                                    	<tbody>
+                                        	<thead>
+                                            	<tr>
+                                               	<td>Note</td>
+                                                	<td>Date</td>
+                                                  <td>Action</td>
+                                               </tr>
+                                            </thead>
+                                            <tbody id="bodyStudentsComments">
+                                          
+                                                 <!-- Commens display by ajax -->
+                                         
+                                            </tbody>
+                                            
+                                        </tbody>
+                                    </table>
+                                
+                          		 	
+                                   
+                              </div>
+                          <div class="modal-footer">
+                         	 
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                     		
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+		          <!-- modal -->
+ 
+
+
+
+
 
 
 

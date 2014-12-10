@@ -234,7 +234,6 @@ $('#BtnEventInsert').click(function(){
 								$('#EventStartInput').val("");
 								$('#EventEndInput').val("");
 								$('#UrlEventInput').val("");
-								$('#EventTuIdInput').val("");
 								$('#publicEventInput').val("");
 							
 								reloadCalendar();

@@ -447,7 +447,7 @@ ul.sidebar-menu li a.active i {
 
 .wrapper {
     display: inline-block;
-    margin-top: 50px;
+    margin-top: 60px;
     padding-left: 30px;
     padding-right: 30px;
     padding-bottom: 15px;
@@ -458,7 +458,19 @@ ul.sidebar-menu li a.active i {
 	background-size:contain;
 	background-repeat:no-repeat;
 }
-
+.wrapperNoTop{
+	
+	display: inline-block;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 15px;
+    padding-top: 0px;
+    width: 100%;
+	min-height:100%;
+	background-image:url(../img/section_background.png);
+	background-size:contain;
+	background-repeat:no-repeat;
+}
 a.logo {
     font-size: 20px;
     color: #ffffff;
@@ -3202,7 +3214,7 @@ ul.sidebar-menu li ul.sub li a:hover{
 
 .inputSeparation{
 	text-align:center;
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 	width: 100%;
 }
 
@@ -3480,52 +3492,245 @@ ul.sidebar-menu li ul.sub li a:hover{
 
 
 
-/* ///    THIS IS THE DARS STYLE ////////// */
 
-.labelDars li{
-	color: #900;
+
+/*    TODO LIST CSS STYLES */
+
+
+.fullHeight{
+	height: 80%;
+	overflow:hidden;
 }
 
-.ResultlabelDars li{
-	color: #333;
+.fullInsideBox{
+	height: 98%;
+	overflow: scroll;
 }
 
-.tab-pane{
-	padding: 10px;
+
+.tbodyHeight{
+	margin-bottom:30px;
 	
+}
+
+.TheadStatic{
+	 
+	position: absolute;
+	top:0;
+	display:inline-table;
 	background-color: #fff;
+	max-width: 1100px;
+    width: 94%;
+	z-index: 1001;
+}
+
+
+tr {
+	/* width: 100%;
+	display: inline-table; */
+}
+
+.tableDynamic{
+	margin-top: 23px;
+}
+
+
+.DescriptionCol{
+	width: 40%;
+}
+.DateCol{
+	width: 100px;
+}
+
+.UrgentCol{
+	text-align: center;
+	width: 100px;
+}
+
+.ActionCol{
+	/* width: auto;*/
+	text-align: center;
+	background-color: #FFF;
+	z-index: 1000;
+	
+}
+
+.centerColumn{
+	text-align: center;
+}
+
+/*      /////  SOME MODIFICATION  ON THE PICK UP CALENDAR //////// */
+
+.datepicker-days{
+	width: 250px;
+}
+.timepicker-picker{
+	width: 150px;
+}
+
+.bootstrap-datetimepicker-widget{
+	z-index: 10001;
 }
 
 
 
-#AcademicTab{
-	cursor: pointer;
-}
 
-#AcademicFormTab{
-	cursor: pointer;
-}
-#NotesTab{
-	cursor: pointer;
-}
-#ExamsTab{
-	cursor: pointer;
+/* box pending task */
+
+#PendingTask{
+	margin: 0;
+	padding: 0;
 }
 
 
+/* /////////// ADD COMMENT BOX ///////////////// */
 
 
-#AcademicTabDiv{
-	display: none;
+.addCommentBox{
+ 	text-align: center;
+	height: 100px;
 }
 
-#AcademicFormTabDiv{
-	display: none;
-}
-#NotesTabDiv{
-	display: none;
-}
-#ExamsTabDiv{
-	display: none;
+.textAreaComments{
+	height: 60px;
+	width: 100%;
+	resize:none;
 }
 
+.maringBtn{
+	margin: 10px;
+}
+
+
+/* this is the semester css code */
+
+
+.lineTwoColumns{
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+	
+	display: -moz-box;
+	-moz-box-orient: horizontal;
+	
+	display:-ms-flexbox;
+	flex-direction: row;
+	
+	
+	width: 100%;
+	height: 50px;
+}
+
+.leftColumn{
+	display: -webkit-box;
+	-webkit-box-align: center;
+	-webkit-box-pack: center;
+	
+	display: -moz-box;
+	-moz-box-align: center;
+	-moz-box-pack: center;
+	
+	display:-ms-flexbox;
+	-ms-flex-pack:center;
+	-ms-flex-align:center;
+	
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	-ms-flex: 1;
+	
+	
+}
+
+.rightColumn{
+	display: -webkit-box;
+	-webkit-box-align: center;
+	-webkit-box-pack: center;
+	
+	display: -moz-box;
+	-moz-box-align: center;
+	-moz-box-pack: center;
+	
+	display:-ms-flexbox;
+	-ms-flex-pack:center;
+	-ms-flex-align:center;
+
+
+	-webkit-box-flex: 0;
+	-moz-box-flex: 0;
+	-ms-flex: 0;
+	width: 150px;
+	
+	
+}
+
+
+
+
+/*  index page style */
+
+.wrapperIndex {
+	
+    display: inline-block;
+    margin-top: 50px;
+   
+    padding-bottom: 15px;
+    padding-top: 0px;
+    width: 100%;
+	
+	background-image:url(../img/section_background.png);
+	background-size:contain;
+	background-repeat:no-repeat;
+	
+	
+}
+
+
+.back-light{
+	background-color: rgba(102,102,102,0.5);
+}
+
+.controls{
+	
+
+position: absolute;
+top: 45%;
+left: 15px;
+width: 50px;
+height: 50px;
+margin-top: -20px;
+font-size: 60px;
+font-weight: 100;
+line-height: 30px;
+color: #ffffff;
+text-align: center;
+background: #222222;
+border: 3px solid #ffffff;
+-webkit-border-radius: 23px;
+-moz-border-radius: 23px;
+border-radius: 23px;
+opacity: 0.5;
+padding: 8px;
+
+}
+
+.right{
+	right: 15px;
+	left: auto;
+}
+
+
+
+.left{
+	left: 15px;
+	right: auto;
+}
+
+
+.labelIndex{
+	text-align: center;
+	font-size:36px;
+	text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+
+.carousel-inner{
+	box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+}
