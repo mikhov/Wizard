@@ -1,16 +1,15 @@
 <?php
 require_once(dirname(__FILE__)).'/../core/init.php';
-
 /*
 
-Table "TODO_LIST"
+Table "ToDoList"
 
 
-Todo_List_Id
+ToDoList_Id	
 ToDo_Description
 ToDo_Date
-ToDo_Urgent
-Tu_Id
+ToDo_Urgent	
+User_Id
 
 */
 
@@ -21,28 +20,30 @@ class ToDoList
 	private $ToDoList;
 	
 	public
-	$Todo_List_Id,
+	$ToDoList_Id,	
 	$ToDo_Description,
 	$ToDo_Date,
-	$ToDo_Urgent,
-	$Tu_Id;
+	$ToDo_Urgent,	
+	$User_Id;
 	
 	
-		public function __construct(){
-			$this->_db = new DB();
-			$this->_db = $this->_db ->Connect();
+		public function __construct()
+		{
+			$this->ToDoList = new Connection();
+			$this->ToDoList = $this->ToDoList->ConnectDB();
+	
 		}
 		
 	
 		
-	public function Insert_Task($ToDo_Description,$ToDo_Date,$ToDo_Urgent,$Tu_Id)
+	public function Insert_User($ToDo_Description,$ToDo_Date,$ToDo_Urgent,$User_Id)
 		{
 			
-				$query_Insert = $this->_db->prepare("INSERT INTO TODO_LIST (ToDo_Description,ToDo_Date,ToDo_Urgent,Tu_Id) VALUES(?,?,?,?)");
+				$query_Insert = $this->ToDoList->prepare("INSERT INTO ToDoList (ToDo_Description,ToDo_Date,ToDo_Urgent,User_Id) VALUES(?,?,?,?)");
 				$query_Insert->bindParam(1, $ToDo_Description);
 				$query_Insert->bindParam(2, $ToDo_Date);
 				$query_Insert->bindParam(3, $ToDo_Urgent);
-				$query_Insert->bindParam(4, $Tu_Id);
+				$query_Insert->bindParam(4, $User_Id);
 				$query_Insert->execute();
 				
 				if($query_Insert->rowCount() == 0){
@@ -50,21 +51,28 @@ class ToDoList
 				}else{
 					return 1;  // 1 is because everything work properly.
 				}
-
+	
+				
+				
+			
 		} // End function insert User
 		
 		
-
-	
-		public function Update_Task($Todo_List_Id,$ToDo_Description,$ToDo_Date,$ToDo_Urgent)
+		
+		
+		
+		
+		
+		public function Update_ToDo($ToDoList_Id,$ToDo_Description,$ToDo_Date,$ToDo_Urgent,$User_Id)
 				{
 			
-			$query_Update = $this->_db->prepare("UPDATE TODO_LIST SET ToDo_Description=?,ToDo_Date=?,ToDo_Urgent=? WHERE Todo_List_Id = ?");
+			$query_Update = $this->ToDoList->prepare("UPDATE ToDoList SET ToDo_Description=?,ToDo_Date=?,ToDo_Urgent=?,User_Id=? WHERE ToDoList_Id = ?");
 				
 				$query_Update->bindParam(1, $ToDo_Description);
 				$query_Update->bindParam(2, $ToDo_Date);
 				$query_Update->bindParam(3, $ToDo_Urgent);
-				$query_Update->bindParam(4, $Todo_List_Id);
+				$query_Update->bindParam(4, $User_Id);
+				$query_Update->bindParam(5, $ToDoList_Id);
 				$query_Update->execute();
 				
 				if($query_Update->rowCount() == 0){
@@ -83,44 +91,20 @@ class ToDoList
 	
 	
 	
-		public function get_ToDo_Info_by_TUID($Tu_Id)
+			function get_ToDo_Info_by_ID($ToDoList_Id)
 			{
-				$query_getTask = $this->_db->prepare("SELECT * FROM TODO_LIST WHERE Tu_Id = ?");
-				$query_getTask->bindParam(1, $Tu_Id);
-				$query_getTask->execute();
+				$query_getUser = $this->ToDoList->prepare("SELECT * FROM ToDoList WHERE ToDoList_Id = ?");
+				$query_getUser->bindParam(1, $ToDoList_Id);
+				$query_getUser->execute();
+				$result = $query_getUser->fetchAll(PDO::FETCH_ASSOC);
+				@$result = $result[0];
 				
-				$resultTask = array();
-				$i=0;  
-				  if($query_getTask->rowCount() != 0){
-					
-						while($result_Task = $query_getTask->fetch(PDO::FETCH_ASSOC)){
-					
-					
-					$Todo_List_Id 		= (isset($result_Task['Todo_List_Id']) ? $result_Task['Todo_List_Id'] : null);
-					$ToDo_Description 	= (isset($result_Task['ToDo_Description']) ? $result_Task['ToDo_Description'] : null);
-					$ToDo_Date 		= (isset($result_Task['ToDo_Date']) ? $result_Task['ToDo_Date'] : null);
-					$ToDo_Urgent 		= (isset($result_Task['ToDo_Urgent']) ? $result_Task['ToDo_Urgent'] : null);
-					$Tu_Id 				= (isset($result_Task['Tu_Id']) ? $result_Task['Tu_Id'] : null);
-					
-					
-					$resultTask['Todo_List_Id'][$i]		=	utf8_encode($Todo_List_Id); 
-					$resultTask['ToDo_Description'][$i]	=	utf8_encode($ToDo_Description); 
-					$resultTask['ToDo_Date_Mysql'][$i]	=	utf8_encode($ToDo_Date); 
-					$resultTask['ToDo_Date'][$i]			=	date("m/d/Y",strtotime($ToDo_Date)); 
-					$resultTask['ToDo_Urgent'][$i]		=	utf8_encode($ToDo_Urgent); 
-					$resultTask['Tu_Id'][$i]				=	utf8_encode($Tu_Id); 
-					
-					
-					$i++;
-					} // End While loop
-						
-						return 	$resultTask;
-						
-					}else{
-						
-						return 0;
-					} // End if else codition
-		
+				$this->ToDoList_Id 		= $result['ToDoList_Id'];
+				$this->ToDo_Description	= $result['ToDo_Description'];
+				$this->ToDo_Date		= $result['ToDo_Date'];
+				$this->ToDo_Urgent		= $result['ToDo_Urgent'];
+				$this->User_Id		= $result['User_Id'];
+				
 				
 			} //  end function get_User_Info_by_ID($User_Id)
 			
@@ -128,10 +112,10 @@ class ToDoList
 			
 	
 	
-		public function Delete_ToDo($Todo_List_Id)
+		function Delete_ToDo($ToDoList_Id)
 		{
-			$query_Delete = $this->_db->prepare("DELETE QUICK FROM TODO_LIST WHERE Todo_List_Id = ? ");
-			$query_Delete->bindParam(1, $Todo_List_Id);
+			$query_Delete = $this->ToDoList->prepare("DELETE QUICK FROM ToDoList WHERE ToDoList_Id = ? ");
+			$query_Delete->bindParam(1, $ToDoList_Id);
 			$query_Delete->execute();
 			
 			if($query_Delete->rowCount() == 1)
@@ -147,4 +131,3 @@ class ToDoList
 	
 	
 } // End of my Users Class
-

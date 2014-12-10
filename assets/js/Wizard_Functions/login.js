@@ -11,6 +11,8 @@ $('#login_btn').click(function(){
 	
 	
 	
+	
+	
 	//// CHECK IF WE HAVE INTERNET CONNECTION
 	if(checkNetConnection()){
 	
@@ -116,14 +118,15 @@ $('#login_btn').click(function(){
 //////  THIS FUNCTION OPEN THE MODAL WINDOWS WHEN AJAX IS WORKING /////// 
 
 var displayLoginModal = function(){
-	$('#loading').show();
+	$('#loading').css('display','-webkit-box');
+	$('#loading').css('display','-moz-box');
+	$('#loading').css('display','-ms-flexbox');	
 }
 
 var hideLoginModal = function(){
-	$('#loading').hide();
+	$('#loading').css('display','none');
+	
 }
-
-
 
 
 

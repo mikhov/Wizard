@@ -426,3 +426,6 @@ public function Email_ResetPassword($Email){
 
 
 	
+	
+	//$changePassword = new User();
+	//echo $changePassword->Reset_Password('tue89164@temple.edu','12345','1238884848');

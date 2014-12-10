@@ -4,29 +4,20 @@
 class DB
 	{
 	
-		private 
-			$_pdo, 
-			$_query, 
-			$_error = false, 
-			$_results, 
-			$_count = 0;
+		private
+		$host		=	"localhost",
+		$db			=	"userperm",
+		$userName 	=	"root",
+		$password	= 	"";
 		
 		
-		public function Connect(){
-			 
-			try{
-					$this->_pdo = new PDO('mysql:host='.Config::get('mysql/host') . 
-										  ';dbname='.Config::get('mysql/db'),
-										   Config::get('mysql/username'),
-										   Config::get('mysql/password'));
-								
-				//echo "connected";
-				
-				return $this->_pdo;
-			}catch(PDOException $e){
-				die($e->getMessage());
-			} 
-		} // End construct
+		public function Connect()
+		{
+					
+			return new PDO("mysql:host=$this->host; dbname=$this->db", $this->userName, $this->password);	
+			print_r($stmt->errorInfo());
+
+		}
 		
 		
 		

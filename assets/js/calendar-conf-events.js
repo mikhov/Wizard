@@ -1,15 +1,39 @@
-
-
-
-
-
 var Script = function () {
+
+
+    /* initialize the external events
+     -----------------------------------------------------------------*/
+
+    $('#external-events div.external-event').each(function() {
+
+        // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+        // it doesn't need to have a start or end
+        var eventObject = {
+            title: $.trim($(this).text()) // use the element's text as the event title
+        };
+
+        // store the Event Object in the DOM element so we can get to it later
+        $(this).data('eventObject', eventObject);
+
+        // make the event draggable using jQuery UI
+        $(this).draggable({
+            zIndex: 999,
+            revert: true,      // will cause the event to go back to its
+            revertDuration: 0  //  original position after the drag
+        });
+
+    });
+
 
     /* initialize the calendar
      -----------------------------------------------------------------*/
 
- 
-  $('#calendar').fullCalendar({
+    var date = new Date();
+    var d = date.getDate();
+    var m = date.getMonth();
+    var y = date.getFullYear();
+
+    $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
             center: 'title',
@@ -40,272 +64,53 @@ var Script = function () {
             }
 
         },
-		
-         /*	events: 'assets/php/functionCalendar.php?getEventsCalendarById=true&&TU_ID='+User_Info['TU_ID'], */
-       	   events: 'assets/php/functionCalendar.php?getEventsCalendarById=true&&TU_ID=915049363', 
-			color: 'yellow',   // an option!
-			textColor: 'black' // an option!
-		
-		/* 'assets/js/Events.json'*/
+        events: [
+            {
+                title: 'All Day Event',
+                start: new Date(y, m, 1)
+            },
+            {
+                title: 'Long Event',
+                start: new Date(y, m, d-5),
+                end: new Date(y, m, d-2)
+            },
+            {
+                id: 999,
+                title: 'Repeating Event',
+                start: new Date(y, m, d-3, 16, 0),
+                allDay: false
+            },
+            {
+                id: 999,
+                title: 'Repeating Event',
+                start: new Date(y, m, d+4, 16, 0),
+                allDay: false
+            },
+            {
+                title: 'Meeting',
+                start: new Date(y, m, d, 10, 30),
+                allDay: false
+            },
+            {
+                title: 'Lunch',
+                start: new Date(y, m, d, 12, 0),
+                end: new Date(y, m, d, 14, 0),
+                allDay: false
+            },
+            {
+                title: 'Birthday Party',
+                start: new Date(y, m, d+1, 19, 0),
+                end: new Date(y, m, d+1, 22, 30),
+                allDay: false
+            },
+            {
+                title: 'Click for Google',
+                start: new Date(y, m, 28),
+                end: new Date(y, m, 29),
+                url: 'http://google.com/'
+            }
+        ]
     });
 
 
 }();
-
-
-
-
-var reloadCalendar = function(){
-	
-	$('#calendar').html("");
-	
-	 $('#calendar').fullCalendar({
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,basicWeek,basicDay'
-        },
-        editable: true,
-        droppable: true, // this allows things to be dropped onto the calendar !!!
-        drop: function(date, allDay) { // this function is called when something is dropped
-
-            // retrieve the dropped element's stored Event Object
-            var originalEventObject = $(this).data('eventObject');
-
-            // we need to copy it, so that multiple events don't have a reference to the same object
-            var copiedEventObject = $.extend({}, originalEventObject);
-
-            // assign it the date that was reported
-            copiedEventObject.start = date;
-            copiedEventObject.allDay = allDay;
-
-            // render the event on the calendar
-            // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-            $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
-            // is the "remove after drop" checkbox checked?
-            if ($('#drop-remove').is(':checked')) {
-                // if so, remove the element from the "Draggable Events" list
-                $(this).remove();
-            }
-
-        },
-		
-         	events: 'assets/php/functionCalendar.php?getEventsCalendarById=true&&TU_ID='+User_Info['TU_ID'],
-       
-			color: 'yellow',   // an option!
-			textColor: 'black' // an option!
-		
-		/* 'assets/js/Events.json'*/
-    });
-
-
-
-
-
-} // End reloadCalendar
-
-
-
-
-	
-
-
-$('#BtnEventInsert').click(function(){
-	
-	
-	
-	var TitleEvent 			= $('#TitleEventInput').val();
-	var DescriptionEvent	 	= $('#DescriptionEventInput').val();
-	var EventDate 				= $('#EventDateInput').val();
-	var EventStart 			= $('#EventStartInput').val();
-	var EventEnd				= $('#EventEndInput').val();
-	var UrlEvent				= $('#UrlEventInput').val();
-	var EventTuId				= $('#EventTuIdInput').val();
-	var publicEvent			=	0;
-	
-	if($('#publicEventInput').is(':checked')){
-		  publicEvent = 1;
-	}
-	
-	
-		///////// ///////// ///////// ///////// ///////// ///////// ///////// ///////// 
-			/////////   CHECK THAT SOME REQUIRED INPUTS ARE NOT EMPTY /////////////
-		///////// ///////// ///////// ///////// ///////// ///////// ///////// ///////// 	
-		
-		
-		if( $('#TitleEventInput').val() == "" ||  $('#TitleEventInput').val() == null){
-			
-				
-				 // Empty the box message
-				$('#boxMessageModal').html("");
-				// Introduce the new message
-				$('#boxMessageModal').html("Please complete title field");
-							  //Execute the modal box
-				$('#modalExpiration').click();
-				$('#TitleEventInput').select();
-				
-		}else if( $('#EventDateInput').val() == "" ||  $('#EventDateInput').val() == null){
-			
-				
-			
-				$('#boxMessageModal').html("");
-				// Introduce the new message
-				$('#boxMessageModal').html("Please Select a date");
-							  //Execute the modal box
-				$('#modalExpiration').click();
-				$('#EventDateInput').select();
-				
-		}else if(checkDate($('#EventDateInput').val()) == false){
-			
-			 // Empty the box message
-				$('#boxMessageModal').html("");
-				// Introduce the new message
-				$('#boxMessageModal').html("Please enter an appropiate date YYYY/MM/DD");
-							  //Execute the modal box
-				$('#modalExpiration').click();
-				$('#EventDateInput').select();
-			
-		
-		}else if( $('#EventStartInput').val() == "" ||  $('#EventStartInput').val() == null){
-			
-			 // Empty the box message
-				$('#boxMessageModal').html("");
-				// Introduce the new message
-				$('#boxMessageModal').html("When start this event?");
-							  //Execute the modal box
-				$('#modalExpiration').click();
-				$('#EventStartInput').select();
-			
-			
-		}else if( $('#EventEndInput').val() == "" ||  $('#EventEndInput').val() == null){
-			
-			 // Empty the box message
-				$('#boxMessageModal').html("");
-				// Introduce the new message
-				$('#boxMessageModal').html("When this event end?");
-							  //Execute the modal box
-				$('#modalExpiration').click();
-				$('#EventStartInput').select();
-			
-			
-		}else if( $('#EventTuIdInput').val() == "" ||  $('#EventTuIdInput').val() == null){
-			
-			 // Empty the box message
-				$('#boxMessageModal').html("");
-				// Introduce the new message
-				$('#boxMessageModal').html("Contact with administratior of Wizard, Dr. Shi");
-							  //Execute the modal box
-				$('#modalExpiration').click();
-				$('#EventStartInput').select();
-			
-			
-		}else{
-			
-				var dataString = 'TitleEvent='+TitleEvent+'&DescriptionEvent='+DescriptionEvent+'&EventDate='+EventDate+'&EventStart='+EventStart+'&EventEnd='+EventEnd+'&UrlEvent='+UrlEvent+'&EventTuId='+EventTuId+'&publicEvent='+publicEvent+'&AddCalendarEvent=true';
-				
-			$.ajax({
-				
-				  type: "POST",
-				  url: "assets/php/functionCalendar.php",
-				  data: dataString,
-				  dataType:"Json",
-				  success: function(data) {
-					  if (data.Status == 'success'){
-						  
-						////////   REFRESH CALENDAR ///////////
-							
-							
-						// Empty the box message
-							$('#boxMessageModal').html("");
-							// Introduce the new message
-							$('#boxMessageModal').html("Event successfully created");
-										  //Execute the modal box
-							$('#modalExpiration').click();
-							$('#EventStartInput').select();
-							
-						
-							
-							////////   CLEAR ALL INPUTS FROM EVENT FORMS ///////////
-							
-								$('#TitleEventInput').val("");
-								$('#DescriptionEventInput').val("");
-								$('#EventDateInput').val("");
-								$('#EventStartInput').val("");
-								$('#EventEndInput').val("");
-								$('#UrlEventInput').val("");
-								$('#publicEventInput').val("");
-							
-								reloadCalendar();
-					  }else{
-						  
-						
-						// Empty the box message
-							$('#boxMessageModal').html("");
-							// Introduce the new message
-							$('#boxMessageModal').html("Error creating the new event");
-										  //Execute the modal box
-							$('#modalExpiration').click();
-							$('#EventStartInput').select();
-							
-						
-						   //////  NO RESULTS FOUND
-						  
-						  }
-						 
-				  },
-				  error: function (XMLHttpRequest, textStatus, errorThrown) {
-					if (textStatus == 'Unauthorized') {
-						 hideLoginModal();
-						alert('custom message. Error: ' + errorThrown);
-					} else {
-						 hideLoginModal();
-						alert('custom message. Error: ' + errorThrown);
-					}
-				}
-
-			});
-			return false;
-		
-			
-			
-	} // end else condition
-		
-		
-	
-});   /// end searchFormBtn
-
-
-
-
-
-//////  THIS FUNCTION OPEN THE MODAL WINDOWS WHEN AJAX IS WORKING /////// 
-
-var displayLoginModal = function(){
-	$('#loading').show();
-}
-
-var hideLoginModal = function(){
-	$('#loading').hide();
-}
-
-
-
-
-
-/////////  CHECK IF IS IT IS A DATE ////////
-
-var checkDate = function(StringDate){
-	
-	if (Date.parse(StringDate)) {
-		return true;
-	} else {
-	  return false;
-	}
-	
-} // End checkDate
-
-
-
-
-

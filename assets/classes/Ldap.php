@@ -18,6 +18,9 @@ class Ldap
 		    /// Bind Connection SSL
 			$bind=ldap_bind($this->ds,Config::get('ldap/dn'),Config::get('ldap/ldap_pss'));
 		
+			//echo $ds;
+			//echo '<br>';
+			//echo $bind;
 			
 		}
 	
@@ -49,8 +52,10 @@ class Ldap
 			$UserObject['LastName'] 	= $info[0]['sn'][0];
 			$UserObject['TU_ID'] 		= $info[0]['templeedutuid'][0];
 			$UserObject['dn'] 			= $info[0]['dn'];
-		
-					
+			
+			
+			//print_r($UserObject);
+			//$User_Object_Json = json_encode($UserObject);
 			if($NumberEntries == 0){
 		
 				return 0; // return 0 because the system do not finde any user
@@ -72,11 +77,6 @@ class Ldap
 				// Know I need to start the Session and laund the index pages. 
 					$_SESSION['UserObject'] = $UserObject;
 					$_SESSION['Time'] = time();
-					
-			/////////// Store the info of the user into User_Ldap table ////////////
-			$Insert_Userd_Ldap = new User_Ldap();
-			$Insert_Userd_Ldap->Insert_User_Ldap($UserObject['Name'],$UserObject['LastName'],$UserObject['Email'] ,$UserObject['TU_ID']);
-					
 					return 1;	/// Return 1 because the user is success logged.
 						
 				 }else{
@@ -91,6 +91,4 @@ class Ldap
 		
 		
 	}	 // End ldap class
-	
-	
 	
