@@ -1,24 +1,30 @@
 <?php
-include_once 'assets/core/init.php';
-// session_start();
 
-// if($_SESSION['UserObject'] == ""){
-	// header("Location: Login.php");
-// }else{
+include_once 'assets/core/init.php';
+ session_start();
+
+ if($_SESSION['UserObject'] == ""){
+	header("Location: Login.php");
+ }else{
 	
-		// if(time() - $_SESSION['Time'] < 1800){
-			// Regenerate the time other 30 minutes
-			// $_SESSION['Time'] = time();
+	   if(time() - $_SESSION['Time'] < 1800){
+		// Regenerate the time other 30 minutes
+		$_SESSION['Time'] = time();
+		$UserObject = $_SESSION['UserObject'];
 			
-			// $UserObject = $_SESSION['UserObject'];
-			// print_r($UserObject);
-		// }else{
-			// header("Location: Login.php?ExpiredSession");
-		// }
-// }
+		}else{
+			 header("Location: Login.php?ExpiredSession");
+		 }
+}
 
 
 ?>
+
+<script>
+	//// This is to store the user object into and javascript object to be use later on the javascript functions. 
+	var User_Info = <?php echo json_encode($UserObject) ?>;// don't use quotes
+
+</script>
 
 <!--Modified by Connor Tang, 10,13,2014-->
 <!DOCTYPE html>
@@ -29,6 +35,7 @@ include_once 'assets/core/init.php';
     <title>Wizard</title>
     <link href="assets/img/icon/logo.ico" rel="icon" type="image/x-icon"/>
     <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-datetimepicker.min.css" type="text/css" media="screen"/>
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="assets/js/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />  
     <link href="assets/css/style.css" rel="stylesheet">
@@ -57,16 +64,12 @@ include_once 'assets/core/init.php';
 						<li><a href='Undegrad_Programs.php'><span>International</span></a></li>
 					</ul>
 				   </li>
-				   <li><a href='#'><span>Forms</span></a>
-					<ul>
-						<li><a href='Form_display.php'><span>Display Form</span></a></li>
-						<li><a href='Form_Create.php'><span>Create Form</span></a></li>
-						<li><a href='Form_PDF.php'><span>Upload PDF</span></a></li>
-					</ul>				   
+				   <li><a href='Form_Create.php'><span>Forms</span></a>
+							   
 				   </li>
 				   <li><a href='#'><span>Organizer</span></a>
 					<ul>
-						<li><a href='Calendar.php'><span>Calendar</span></a></li>
+						<li><a href='calendar.php'><span>Calendar</span></a></li>
 						<li><a href='Todo_list.php'><span>Todo List</span></a></li>
 					</ul>				   
 				   </li>
@@ -108,7 +111,7 @@ include_once 'assets/core/init.php';
 									</li>
 									
 									<li class="userLiMenu">
-										<a href="ajax/calendar.html" class="ajax-link">
+										<a href="Todo_list.php" class="ajax-link">
 											<i class="fa fa-tasks"></i>
 											<span>Tasks</span>
 										</a>
@@ -136,76 +139,34 @@ include_once 'assets/core/init.php';
                 <ul class="nav top-menu">
                     <!-- settings start -->
                     <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.php">
                             <i class="fa fa-tasks"></i>
-                            <span class="badge bg-theme">4</span>
+                            <span class="badge bg-theme" id="numTask"></span>
                         </a>
                         <ul class="dropdown-menu extended tasks-bar" id="dropdown-task">
                             <div class="notify-arrow notify-arrow-green" id="notify-arrow-task"></div>
                             <li>
-                                <p class="green">You have 4 pending tasks</p>
+                                <p class="green" id="numTaskTest"></p>
                             </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">DashGum Admin Panel</div>
-                                        <div class="percent">40%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">Database Update</div>
-                                        <div class="percent">60%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">Product Development</div>
-                                        <div class="percent">80%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">Payments Sent</div>
-                                        <div class="percent">70%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
-                                            <span class="sr-only">70% Complete (Important)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
+                            
+                            
+                            <ul id="PendingTask"> 
+                            
+                            
+                            			<!-- task complete wiht ajax -->
+                           </ul> <!-- end PendingTask ul =-->
+                           
+                           
+                           
                             <li class="external">
-                                <a href="#">See All Tasks</a>
+                                <a href="Todo_list.php">See All Tasks</a>
                             </li>
                         </ul>
                     </li>
                     <!-- settings end -->
                     <!-- inbox dropdown start-->
                     <li id="header_inbox_bar" class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.php">
                             <i class="fa fa-envelope-o"></i>
                             <span class="badge bg-theme">5</span>
                         </a>
@@ -215,7 +176,7 @@ include_once 'assets/core/init.php';
                                 <p class="green">You have 5 new messages</p>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="index.php">
                                     <span class="photo"><img alt="avatar" src="assets/img/useravatar24.png"></span>
                                     <span class="subject">
                                     <span class="from">Zac Snider</span>
@@ -227,7 +188,7 @@ include_once 'assets/core/init.php';
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="index.php">
                                     <span class="photo"><img alt="avatar" src="assets/img/useravatar24.png"></span>
                                     <span class="subject">
                                     <span class="from">Divya Manian</span>
@@ -239,7 +200,7 @@ include_once 'assets/core/init.php';
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="index.php">
                                     <span class="photo"><img alt="avatar" src="assets/img/useravatar24.png"></span>
                                     <span class="subject">
                                     <span class="from">Dan Rogers</span>
@@ -251,7 +212,7 @@ include_once 'assets/core/init.php';
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="index.php">
                                     <span class="photo"><img alt="avatar" src="assets/img/useravatar24.png"></span>
                                     <span class="subject">
                                     <span class="from">Dj Sherman</span>
@@ -263,7 +224,7 @@ include_once 'assets/core/init.php';
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">See all messages</a>
+                                <a href="index.php">See all messages</a>
                             </li>
                         </ul>
                     </li>
@@ -335,9 +296,9 @@ include_once 'assets/core/init.php';
                           <span>Forms</span>
                       </a>
                       <ul class="sub">
-                      	  <li><a  href="Form_display.php">Display Forms</a></li>
-                          <li><a  href="Form_Create.php">Create Form</a></li>
-                          <li><a  href="Form_PDF.php">Update PDF's Form</a></li>
+                      	 <li><a href="Form_display.php">Display Forms</a></li>
+                          <li><a href="Form_Create.php">Create Form</a></li>
+                          <li><a href="Form_PDF.php">Update PDF's Form</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
