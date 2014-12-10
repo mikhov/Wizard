@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://localhost/~juanitohf/www/Wizard_Git/Login.php -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Juan Huertas-Fernandez">
+   
+
+    <title>Wizard</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://localhost/~juanitohf/www/Wizard_Git/assets/css/bootstrap.css" rel="stylesheet">
+   
+        
+    <!-- Custom styles for this template -->
+    <link href="http://localhost/~juanitohf/www/Wizard_Git/assets/css/style.css" rel="stylesheet">
+    <link href="http://localhost/~juanitohf/www/Wizard_Git/assets/css/style-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="">
+
+      <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+
+	  <div id="login-page">
+	  	<div class="container">
+	  	
+		    <form class="form-login">
+		        <h2 class="form-login-heading">sign in now</h2>
+		        <div class="login-wrap">
+		            <input type="text" class="form-control" placeholder="Username" id="username" autofocus="">
+		            <br>
+		            <input type="password" class="form-control" placeholder="Password" id="password">
+		            <label class="checkbox">
+		                <span class="pull-right">
+		                    <a data-toggle="modal" href="https://accounts.temple.edu/selfcare/login.jsp" target="_blank"> Forgot Password?</a>
+		
+		                </span>
+		            </label>
+		            <button class="btn-theme btn-block" type="button" id="login_btn"><i class="fa fa-lock"></i> SIGN IN</button>
+		            <hr>
+		            
+		    
+		        </div>
+		</form>
+		         
+             
+               <!-- Modal 3 LOGIN EXPIRED -->
+		          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal3" class="modal fade" style="display: none;">
+		              <div class="modal-dialog">
+		                  <div class="modal-content">
+		                      <div class="modal-header">
+		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		                          <h4 class="modal-title">Wizard Alert</h4>
+                                  <a data-toggle="modal" id="modalExpiration" href="http://localhost/~juanitohf/www/Wizard_Git/login.html#myModal3"></a>
+		                      </div>
+                               <div class="modal-body" id="bodyAlertMessageBox">
+		                          <h4 class="modal-dialog" id="boxMessageModal">fail to connect, please check your connection settings</h4>
+								
+		                      </div>
+		                      <div class="modal-footer" id="footerModalSessionExpired">
+		                          <button data-dismiss="modal" class="btn btn-default" type="button" id="BtnExpirationModal">OK</button>
+								
+		                      </div>
+		                      
+		                  </div>
+		              </div>
+		          </div>
+		          <!-- modal -->
+                  
+                  
+                  
+                <div class="modal-body" id="loading"><img src="./Wizard_files/ajax-loader.gif"></div>  
+                  
+                  
+		
+	  	</div>
+	  </div>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="./Wizard_files/jquery-1.11.1.js"></script>
+    <script src="./Wizard_files/bootstrap.min.js"></script>
+    <script src="./Wizard_files/login.js"></script>
+
+    <!--BACKSTRETCH-->
+    <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+    <script type="text/javascript" src="./Wizard_files/jquery.backstretch.min.js"></script>
+    <script>
+        $.backstretch("assets/img/login-bg.jpg", {speed: 500});
+    </script><div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 600px; width: 1074px; z-index: -999999; position: fixed;"><img src="./Wizard_files/login-bg.jpg" style="position: absolute; margin: 0px; padding: 0px; border: none; width: 1074px; height: 716.135094339623px; max-width: none; z-index: -999999; left: 0px; top: -58.0675471698114px;"></div>
+    
+    
+    <!-- OPEN MODAL WINDOWS SESSION EXPIRED -->
+    
+    
+
+
+  
+
+</body></html>

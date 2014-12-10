@@ -12,8 +12,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <!--external css-->
-    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+   
         
     <!-- Custom styles for this template -->
     <link href="assets/css/style.css" rel="stylesheet">
@@ -35,89 +34,27 @@
 	  <div id="login-page">
 	  	<div class="container">
 	  	
-		      <form class="form-login">
+		    <form class="form-login">
 		        <h2 class="form-login-heading">sign in now</h2>
 		        <div class="login-wrap">
-		            <input type="text" class="form-control" placeholder="Email" id="TempleEmail" autofocus>
+		            <input type="text" class="form-control" placeholder="Username" id="username" autofocus>
 		            <br>
 		            <input type="password" class="form-control" placeholder="Password" id="password">
 		            <label class="checkbox">
 		                <span class="pull-right">
-		                    <a data-toggle="modal" href="login.html#myModal"> Forgot Password?</a>
+		                    <a data-toggle="modal" href="https://accounts.temple.edu/selfcare/login.jsp" target="_blank"> Forgot Password?</a>
 		
 		                </span>
 		            </label>
-		            <button class="btn-theme btn-block" type="buttom" id="btnLogin"><i class="fa fa-lock"></i> SIGN IN</button>
+		            <button class="btn-theme btn-block" type="button" id="login_btn"><i class="fa fa-lock"></i> SIGN IN</button>
 		            <hr>
 		            
-		            
-		            <div class="registration">
-		                Don't have an account yet?<br/>
-		                <a data-toggle="modal" href="login.html#myModal2">
-		                    Request a password
-		                </a>
-		            </div>
-					
-		        	
-	  	
+		    
 		        </div>
-		</form>	
-		          <!-- Modal -->
-		          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
-		              <div class="modal-dialog">
-		                  <div class="modal-content">
-		                      <div class="modal-header">
-		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                          <h4 class="modal-title">Forgot Password ?</h4>
-		                      </div>
-		                      <div class="modal-body">
-		                          <p>Enter your e-mail address below to reset your password.</p>
-		                          <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
-		
-		                      </div>
-		                      <div class="modal-footer">
-		                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-		                          <button class="btn btn-theme" type="button">Submit</button>
-		                      </div>
-		                  </div>
-		              </div>
-		          </div>
-		          <!-- modal -->
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                   <!-- Modal 2 to Request a password -->
-		          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal2" class="modal fade">
-		              <div class="modal-dialog">
-		                  <div class="modal-content">
-		                      <div class="modal-header">
-		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                          <h4 class="modal-title">Request a passord</h4>
-		                      </div>
-		                      <div class="modal-body">
-		                          <p>Enter your e-mail address from Temple University.</p>
-		                          <input type="text" id="EmailRequest" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
-		
-		                      </div>
-		                      <div class="modal-footer">
-		                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-		                          <button class="btn btn-theme" type="button" id="btnRequestPassword">Submit</button>
-		                      </div>
-		                  </div>
-		              </div>
-		          </div>
-		          <!-- modal3 -->
-                  
-                  
-                  
-                  
-                     <!-- Modal 3 LOGIN EXPIRED -->
+		</form>
+		         
+             
+               <!-- Modal 3 LOGIN EXPIRED -->
 		          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal3" class="modal fade">
 		              <div class="modal-dialog">
 		                  <div class="modal-content">
@@ -142,7 +79,7 @@
                   
                   
                   
-                  
+                <div class="modal-body" id="loading"><img src="assets/img/ajax-loader.gif" /></div>  
                   
                   
 		
@@ -152,7 +89,7 @@
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="assets/js/jquery-1.11.1.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/TeamFunctions/login.js"></script>
+    <script src="assets/js/Wizard_Functions/login.js"></script>
 
     <!--BACKSTRETCH-->
     <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
@@ -178,6 +115,7 @@
     }
 
 ?>
+
 
 
   </body>

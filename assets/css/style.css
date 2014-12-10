@@ -94,7 +94,7 @@ a, a:hover, a:focus {
 }
 
 .bg-theme03 {
-  background-color: #48cfad;
+  background-color: white;
 }
 
 .bg-theme04 {
@@ -134,7 +134,7 @@ a, a:hover, a:focus {
 
 .btn-theme03 {
   color: #fff;
-  background-color: #48cfad;
+  background-color: white;
   border-color: #37bc9b;
 }
 .btn-theme03:hover,
@@ -250,6 +250,7 @@ ul.top-menu > li > .logout {
     position: fixed;
     background: #f7f7f7;
 	border-right: 1px outset #f7f7f7;
+	display: none;
 }
 
 #sidebar h5 {
@@ -274,7 +275,6 @@ ul.top-menu > li > .logout {
     height:17px;
     width:17px;
     display:inline-block;
-    background: url("../img/nav-expand.png") no-repeat top;
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -283,7 +283,6 @@ ul.top-menu > li > .logout {
     top:15px;
 }
 .active .dcjq-icon {
-    background: url("../img/nav-expand.png") no-repeat bottom;
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -414,13 +413,11 @@ ul.sidebar-menu li a.active i {
 
 /* MAIN CONTENT CONFIGURATION */
 #main-content {
-    margin-left: 210px;
 	background-color: #f7f7f7;
 }
 
-.header, .footer {
-    min-height: 60px;
-    padding: 0 15px;
+.header{
+    min-height: 41px;
 }
 
 .header {
@@ -440,12 +437,12 @@ ul.sidebar-menu li a.active i {
 .wrapper {
     display: inline-block;
     margin-top: 60px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
     padding-bottom: 15px;
     padding-top: 0px;
     width: 100%;
-	min-height:600px;
+	min-height:580px;
 	background-image:url(../img/section_background.png);
 	background-size:contain;
 	background-repeat:no-repeat;
@@ -462,9 +459,8 @@ a.logo {
 .logo img{
 	/* height: 60px;
 	width: 240px; */
-	margin-top: 5px;
+	margin-top: 0px;
 }
-
 
 
 /*notification*/
@@ -473,7 +469,7 @@ a.logo {
 }
 
 .notify-row {
-    float: left;
+    float: right;
     margin-top: 15px;
     margin-left: 92px;
 }
@@ -519,6 +515,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     max-width: 300px !important;
     min-width: 160px !important;
     top: 42px;
+	left: -80px;
     width: 235px !important;
     padding: 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.176) !important;
@@ -738,7 +735,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     margin-top: 0;
     opacity: 0;
     position: absolute;
-    left: 7px;
+    left: 87px;
     top: -18px;
     transition: all 0.25s ease 0s;
     width: 0;
@@ -766,6 +763,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     float: left;
     padding-right: 15px;
     margin-top: 20px;
+	display: none;
 }
 
 .sidebar-toggle-box .fa-bars {
@@ -2007,7 +2005,7 @@ label {
 }
 
 .lock-screen a:hover {
-	color: #48cfad
+	color: white
 }
 
 .lock-screen i {
@@ -2243,33 +2241,6 @@ label {
     border-left: 3px solid #BEC3C7;
 }
 
-/*footer*/
-.site-footer {
-    background: #68dff0;
-    color: #fff;
-    padding: 10px 0;
-	
-}
-
-
-.go-top {
-    margin-right: 1%;
-    float: right;
-    background: rgba(255,255,255,.5);
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-}
-
-.go-top i {
-    color: #2A3542;
-}
-
-.site-min-height {
-    min-height: 900px;
-}
-
 
 /* THIS IS MY CODE MODIFICATIONS */
 
@@ -2304,8 +2275,8 @@ ul.sidebar-menu li ul.sub li a:hover{
     -webkit-border-radius: 4px;
 
    padding: 0px;
-    margin-left: 100px;
-	border: 1px outset #800;
+    margin-left: 10px;
+	/* border: 1px outset #800; */
 	width: 45px;
 	height: 40px;
 	margin-top: 10px;
@@ -2327,12 +2298,12 @@ ul.sidebar-menu li ul.sub li a:hover{
 #UserNameTopHeader{
 	margin-top: 20px;
 	color: #fff;
-
+	padding-right: 15px;
 }
 
 .boxMenuUser{
 	position:absolute;
-	left: 50px;
+	right: 50px;
 }
 .userLiMenu{
 	display: -webkit-box;
@@ -2345,7 +2316,7 @@ ul.sidebar-menu li ul.sub li a:hover{
 	-ms-flex-align:center;
 	
 	height: 40px;
-	border-bottom: 1px outset white;
+	width: 123px;
 }
 
 .userLiMenu a{
@@ -2418,5 +2389,43 @@ ul.sidebar-menu li ul.sub li a:hover{
 #inputFileRequest{
 	margin-left: 10px;
 }
+
+/*scroll to top button*/
+.scrollToTop{
+	width: 50px; 
+	height: 50px;
+	position: fixed;
+	bottom: 10%;
+	right: 5%;
+	display: none;
+	background: url('../img/icon/Scroll.png');
+	z-index: 10002;
+}
+
+
+#loading{
+	
+	
+	display: none;
+
+	-webkit-box-align: center;
+	-webkit-box-pack: center;
+	
+
+	-moz-box-align: center;
+	-moz-box-pack: center;
+	
+	-ms-flex-pack:center;
+	-ms-flex-align:center;
+	
+	background-color: rgba(0,0,0,0.2);
+	position:absolute;
+	top:0;
+	bottom:0;
+	left: 0;
+	right:0;
+}
+
+
 
 

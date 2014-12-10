@@ -1,5 +1,6 @@
 <?php
 
+require_once(dirname(__FILE__)).'/../core/init.php';
 /*
 TABLE "Observations"
 
@@ -12,7 +13,7 @@ Student_Id
 
 
 */
-require_once('Connection.php');
+
 
 
 class Observations

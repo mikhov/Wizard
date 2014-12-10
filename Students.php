@@ -1,396 +1,439 @@
 <?php
-session_start();
-if (!isset($_SESSION['Email'])) {
-	
-	header("Location: Login.php");
-	
-}else if(isset($_SESSION['Email'])){
-	
-	if (time() - $_SESSION['Time'] > 1800) {
-		// session started more than 30 minutes ago
-		header("Location: Login.php?ExpiredSession");
-	
-	}else{
-		
-		session_regenerate_id(true);    // change session ID for the current session and invalidate old session ID
-		$_SESSION['Time'] = time();  // update creation time
-		$_SESSION['Email'] = $Email;
-		
-	}
-	
-}
+include('header.php');
 ?>
 
-<!DOCTYPE html>
-<html lang="en"><!-- InstanceBegin template="/Templates/Wizard_template.dwt" codeOutsideHTMLIsLocked="false" -->
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Juan Huertas-Fernandez">
-    
-    <!-- InstanceBeginEditable name="doctitle" -->
-    <title>Wizard</title>
-    <!-- InstanceEndEditable -->
-   
-    <link href="assets/img/icon/logo.ico" rel="icon" type="image/x-icon"/>
-     <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    
-    <!--external css-->
-    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="assets/js/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />  
-    
-    <!-- Custom styles for this template -->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/style-responsive.css" rel="stylesheet">
 
-    
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  <!-- InstanceBeginEditable name="head" -->
-  <!-- InstanceEndEditable -->
-  </head>
-
-  <body>
-
-  <section id="container" >
-      <!-- **********************************************************************************************************************************************************
-      TOP BAR CONTENT & NOTIFICATIONS
-      *********************************************************************************************************************************************************** -->
-      <!--header start-->
-      <header class="header black-bg">
-              <div class="sidebar-toggle-box">
-                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-              </div>
-            <!--logo start-->
-            <a href="http://www.temple.edu/" class="logo" target="_blank"><img src="assets/img/logoHeader.png" alt="logo Temple" id="logoHeader1"><img src="assets/img/logoHeader2.png" alt="logo Temple" id="logoHeader2"></a>
-            <!--logo end-->
-            <div class="nav notify-row" id="top_menu">
-                <!--  notification start -->
-                <ul class="nav top-menu">
-                    <!-- settings start -->
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-                            <i class="fa fa-tasks"></i>
-                            <span class="badge bg-theme">4</span>
-                        </a>
-                        <ul class="dropdown-menu extended tasks-bar">
-                            <div class="notify-arrow notify-arrow-green"></div>
-                            <li>
-                                <p class="green">You have 4 pending tasks</p>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">DashGum Admin Panel</div>
-                                        <div class="percent">40%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">Database Update</div>
-                                        <div class="percent">60%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">Product Development</div>
-                                        <div class="percent">80%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">Payments Sent</div>
-                                        <div class="percent">70%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
-                                            <span class="sr-only">70% Complete (Important)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="external">
-                                <a href="#">See All Tasks</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- settings end -->
-                    <!-- inbox dropdown start-->
-                    <li id="header_inbox_bar" class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-                            <i class="fa fa-envelope-o"></i>
-                            <span class="badge bg-theme">5</span>
-                        </a>
-                        <ul class="dropdown-menu extended inbox">
-                            <div class="notify-arrow notify-arrow-green"></div>
-                            <li>
-                                <p class="green">You have 5 new messages</p>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="assets/img/ui-zac.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Zac Snider</span>
-                                    <span class="time">Just now</span>
-                                    </span>
-                                    <span class="message">
-                                        Hi mate, how is everything?
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="assets/img/ui-divya.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Divya Manian</span>
-                                    <span class="time">40 mins.</span>
-                                    </span>
-                                    <span class="message">
-                                     Hi, I need your help with this.
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="assets/img/ui-danro.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Dan Rogers</span>
-                                    <span class="time">2 hrs.</span>
-                                    </span>
-                                    <span class="message">
-                                        Love your new Dashboard.
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="assets/img/ui-sherman.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Dj Sherman</span>
-                                    <span class="time">4 hrs.</span>
-                                    </span>
-                                    <span class="message">
-                                        Please, answer asap.
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">See all messages</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- inbox dropdown end -->
-                    
-                    
-                </ul>
-                <!--  notification end -->
-            </div>
+   <section class="containerHorizontal">
             
-            <div class="top-menu">
-            	<ul class="nav pull-right top-menu" id="userMenu">
-                
-                  <!-- inbox dropdown start-->
-                    <li id="header_inbox_bar" class="dropdown">
-                    	
-                        
-                            <a data-toggle="dropdown" class="dropdown-toggle linkUser" href="index.html#">
-                               <img src="assets/img/juan.png" alt="avatar" />
-                            </a>
-                            
-                          
-                        
-                        
-                        <ul class="dropdown-menu boxMenuUser">
-                         
-									<li class="userLiMenu">
-										<a href="#">
-											<i class="fa fa-user"></i>
-											<span>Profile</span>
-										</a>
-									</li>
-									<li class="userLiMenu">
-										<a href="ajax/page_messages.html" class="ajax-link">
-											<i class="fa fa-envelope"></i>
-											<span>Messages</span>
-										</a>
-									</li>
-									
-									<li class="userLiMenu">
-										<a href="ajax/calendar.html" class="ajax-link">
-											<i class="fa fa-tasks"></i>
-											<span>Tasks</span>
-										</a>
-									</li>
-									
-									<li class="userLiMenu">
-										<a href="assets/PHP/functionLogin.php?logout">
-											<i class="fa fa-power-off"></i>
-											<span>Logout</span>
-										</a>
-									</li>
-					  </ul>
-                                
-                                
-                                
-                                
-                    </li> <!-- end dropdown -->
-                    <li id="UserNameTopHeader">Welcolme, Juanito </li>
-            	</ul>
+            	 <div class="leftPanel">
                  
-        
-                  
-            </div>
-            
+                 		<div class="headerTable">
+                        
+                          <h4 id="titleMemberTable">Temple Students</h4>
+                                <div class="input-group inputSeparation">
+                                  <span class="input-group-addon addonWidth"><i class="fa fa-filter"></i></span>
+                                 	<input type="text" class="form-control inputWidth" id="nameFilter" placeholder="Students Filter">
+                                </div>
+	                  	  	  <hr>
+                              
+                              <div class="lineHeader">
+                              
+                              	<div class="blockName"><i class="fa fa-user"></i> Name</div>
+                                
+                                <div class="blockCollege"><i class="fa fa-book"></i> College</div>
+                                <div class="blockAcademicStatus"><i class="fa fa-folder-open"></i> Academic Status </div>
+                                <div class="blockGPA"><i class="fa fa-star"></i> GPA</div>
+                                
+                                
+                                <div class="blockEmail"><i class="fa fa-envelope"></i> Email</div>
+                                <div class="tuidBlook"><i class="fa fa-key"></i> TU-ID</div>
+                                <div class="Action_Blook"><i class="fa fa-cogs"></i> Action</div>
+                                
+                              </div> <!-- end lineHeader -->
+                       </div> <!-- headerTable -->
+                       
+                       
+                       <div class="bodyTable">
+                       	<div id="bodyTableFull">
+                        
+                        			<table class="table table-striped table-advance table-hover draggable">
+                                     <tbody class="searchable" id="StudentTable">
+                                     
+                                     	<!-- DISPLAY INFO WITH AJAX -->
+                                        
+                                     </tbody>
+                                 </table>
+                               
+                                    
+                          </div>
+                       </div> <!-- end bodyTable -->
+               
+                    
+               </div> <!-- end leftPanel -->
+               
+              
              
+            
+      
+            </section>
+            
+            
+            
+                      
+        <!-- /////////////////////////////////////////////////// -->
+        <!--------------   MODAL WINDOWS TO DISPLAY MESSAGES ------>
+        <!-- /////////////////////////////////////////////////// -->
+
+
+	 <!-- Modal Windows to display messages -->
+		          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal3" class="modal fade">
+		              <div class="modal-dialog">
+		                  <div class="modal-content">
+		                      <div class="modal-header">
+		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                          <h4 class="modal-title">Wizard Alert</h4>
+                                  <a data-toggle="modal" id="modalExpiration" href="login.html#myModal3"></a>
+		                      </div>
+                               <div class="modal-body" id="bodyAlertMessageBox">
+		                          <h4 class="modal-dialog" id="boxMessageModal"></h4>
+								
+		                      </div>
+		                      <div class="modal-footer" id="footerModalSessionExpired">
+		                          <button data-dismiss="modal" class="btn btn-default" type="button" id="BtnExpirationModal">OK</button>
+								
+		                      </div>
+		                      
+		                  </div>
+		              </div>
+		          </div>
+		          <!-- modal -->
                 
-          
-    </header>
-      <!--header end-->
-      
-      <!-- **********************************************************************************************************************************************************
-      MAIN SIDEBAR MENU
-      *********************************************************************************************************************************************************** -->
-      <!--sidebar start-->
-      <aside>
-          <div id="sidebar"  class="nav-collapse ">
-              <!-- sidebar menu start-->
-              <ul class="sidebar-menu" id="nav-accordion">
-              	  	
-                  <li class="mt">
-                      <a class="active" href="index.php">
-                          <i class="fa fa-home"></i>
-                          <span>Home</span>
-                      </a>
-                  </li>
+                
+                <!-- /////////////////////////////////////////////////// -->
+                <!--------------   MODAL WINDOWS TO DISPLAY LOADING ICON ------>
+                <!-- /////////////////////////////////////////////////// -->
 
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-desktop"></i>
-                          <span>Administrative</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="Students.php">Students</a></li>
-                          <li><a  href="Faculties.php">Faculties</a></li>
-                         
-                      </ul>
-                  </li>
-
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-cogs"></i>
-                          <span>Organizer</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="Calendar.php">Calendar</a></li>
-                          <li><a  href="Todo_list.php">Todo List</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-book"></i>
-                          <span>Programs</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="Undegrad_Programs.php">Undegraduate Programs</a></li>
-                          <li><a  href="Graduate_Programs.php">Graduate Programs</a></li>
-                          <li><a  href="International.php">International</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-tasks"></i>
-                          <span>Forms</span>
-                      </a>
-                      <ul class="sub">
-                      	  <li><a  href="Form_display.php">Display Forms</a></li>
-                          <li><a  href="Form_Create.php">Create Form</a></li>
-                          <li><a  href="Form_PDF.php">Update PDF's Form</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="UpdateData.php" >
-                          <i class="fa fa-cog"></i>
-                          <span>Update Data</span>
-                      </a>
-                  </li>
-                  
-
-              </ul>
-              <!-- sidebar menu end-->
-          </div>
-      </aside>
-      <!--sidebar end-->
-      
-      <!-- **********************************************************************************************************************************************************
-      MAIN CONTENT
-      *********************************************************************************************************************************************************** -->
-      <!--main content start-->
-      <section id="main-content"><!-- InstanceBeginEditable name="Content Session wrapper" -->
-      <section class="wrapper">
-        <!-- HERE IS WHERE IS NECESSARY TO INCLUDE THE CONTENT -->
-        
-        
-        
-        	<h1> This is my student page</h1>
-        
-      </section>
-      <!-- InstanceEndEditable --></section>
-
-      <!--main content end-->
-      <!--footer start-->
-      <footer class="site-footer">
-          <div class="text-center">
-              2014 - Wizard
-              <a href="index.html#" class="go-top">
-                  <i class="fa fa-angle-up"></i>
-              </a>
-          </div>
-    </footer>
-      <!--footer end-->
-  </section>
-
-      <!-- js placed at the end of the document so the pages load faster -->
-    <script src="assets/js/jquery-1.11.1.js"></script>
-    <script src="assets/js/jquery-ui-1.9.2.custom.min.js"></script>
-	<script src="assets/js/fullcalendar/fullcalendar.min.js"></script>    
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="assets/js/jquery.scrollTo.min.js"></script>
-    <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
-
-
-    <!--common script for all pages-->
-    <script src="assets/js/common-scripts.js"></script>
-
-    <!--script for this page-->
-	<script src="assets/js/calendar-conf-events.js"></script> 
-     
+ 				<div class="modal-body" id="loading"><img src="assets/img/ajax-loader.gif" /></div> 
   
+  
+  
+  				 <!-- //////////////////////////////////////////////////////////////// -->
+               <!--------------   MODAL WINDOWS TO DISPLAY STUDENTS INFORMATION ------->
+               <!-- //////////////////////////////////////////////////////////////// -->
+  
+  
+              
+          
+ 
+     <!-- Modal WINDOWS TO EDIT SCIENCETAP MEMBERS -->
+                    <div class="modal fade" id="editMemberModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header" id="HeaderModal">
+                            <button type="button" class="close" data-dismiss="modal" id="closeX">
+                            			<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Student Records <i class="fa fa-user"></i></h4>
+                          </div>
+                              <div class="modal-body">
+                          
+                          			 <h4 class="LabelStudentInfo">Personal Info</h4>
+                                     <hr class="LabelStudentInfo">
+                                     <br>
+                                     
+                                    <div class="lineStudentRecord">
+                                    	<div class="lineStudentRecordI">
+                                        	 <div class="leftStudent"><p>Name:</p></div>
+                                            <div class="rightStudent"><p id="NameStudentInfo"><p></div>
+                                        </div>
+                                        <div class="lineStudentRecordI">
+                                        	<div class="leftStudent"><p>Gender:</p></div>
+                                           <div class="rightStudent"><p id="GenderStudentInfo"></p></div>
+                                        </div>
+                                   
+                                    </div> <!-- end lineStudentRecord -->
+                                    
+                                    <div class="lineStudentRecord">
+                                    	<div class="lineStudentRecordI">
+                                        	 <div class="leftStudent"><p>Address:</p></div>
+                                            <div class="rightStudent"><p id="Address_Street_StudentInfo"><p></div>
+                                        </div>
+                                       
+                                    </div> <!-- end lineStudentRecord -->
+                                    
+                                    
+                                    
+                                    
+                                    <div class="lineStudentRecord">
+                                    	<div class="lineStudentRecordI">
+                                        	 <div class="leftStudent"><p>City:</p></div>
+                                            <div class="rightStudent"><p id="CityStudioInfo"><p></div>
+                                        </div>
+                                        <div class="lineStudentRecordI">
+                                        	<div class="leftStudent"><p >Zip:</p></div>
+                                           <div class="rightStudent"><p id="ZipStudioInfo"></p></div>
+                                        </div>
+                                     </div> <!-- end lineStudentRecord -->
+                                    
+                                    <br>
+                                    
+                                    
+                                    
+                                    <h4 class="LabelStudentInfo">Contact Info</h4>
+                                    <hr class="LabelStudentInfo">
+                                    <br>
+                                    
+                                     <div class="lineStudentRecord">
+                                    	<div class="lineStudentRecordI">
+                                        	 <div class="leftStudent"><p>Email:</p></div>
+                                            <div class="rightStudent"><p id="EmailStudentInfo">tue89164@temple.edu<p></div>
+                                        </div>
+                                        <div class="lineStudentRecordI">
+                                        	<div class="leftStudent"><p>Phone:</p></div>
+                                           <div class="rightStudent"><p id="phoneStudentInfo">267-348-7342</p></div>
+                                        </div>
+                                     </div> <!-- end lineStudentRecord -->
+                                    
+                                    
+                                  <br>
+                                  <h4 class="LabelStudentInfo">Academic Info</h4>
+                                  <hr class="LabelStudentInfo">
+                                  <br>
+                                 
+                                  <div class="lineStudentRecord">
+                                    	<div class="lineStudentRecordI">
+                                        	 <div class="leftStudent"><p>Tu_Id:</p></div>
+                                            <div class="rightStudent" id="TuIdStudentInfo"><p></p></div>
+                                        </div>
+                                        <div class="lineStudentRecordI">
+                                        	<div class="leftStudent"><p>Graduation:</p></div>
+                                           <div class="rightStudent"><p id="ExpectStudentInfo"></p></div>
+                                        </div>
+                                 </div> <!-- end lineStudentRecord -->
+                                 
+                                 
+                                   <div class="lineStudentRecord">
+                                    	<div class="lineStudentRecordI">
+                                        	 <div class="leftStudent"><p>College:</p></div>
+                                            <div class="rightStudent"><p id="collegeStudentInfo"></p></div>
+                                        </div>
+                                        <div class="lineStudentRecordI">
+                                        	<div class="leftStudent"><p>Program:</p></div>
+                                           <div class="rightStudent"><p id="programStudentInfo"></p></div>
+                                        </div>
+                                 	</div> <!-- end lineStudentRecord -->
+                                 
+                                 
+                                 
+                                 
+                                   <div class="lineStudentRecord">
+                                    	<div class="lineStudentRecordI">
+                                        	 <div class="leftStudent"><p>Level:</p></div>
+                                            <div class="rightStudent"><p id="levelStudentInfo"></p></div>
+                                        </div>
+                                        <div class="lineStudentRecordI">
+                                        	<div class="leftStudent"><p>Degree:</p></div>
+                                           <div class="rightStudent"><p id="degreeStudentInfo"> </p></div>
+                                        </div>
+                                 	</div> <!-- end lineStudentRecord -->
+                                 
+                                 
+                                   <div class="lineStudentRecord">
+                                    	<div class="lineStudentRecordI">
+                                        	 <div class="leftStudent"><p>Curriculum:</p></div>
+                                            <div class="rightStudent"><p id="curriculumStudionInfo"></p></div>
+                                        </div>
+                                        <div class="lineStudentRecordI">
+                                        	 <div class="leftStudent"><p>Hours Att:</p></div>
+                                            <div class="rightStudent"><p id="hoursAttStudionInfo"></p></div>
+                                        </div>
+                                       
+                                 	</div> <!-- end lineStudentRecord -->
+                                 
+                                 
+                                 
+                                 <div class="lineStudentRecord">
+                                    	
+                                        <div class="lineStudentRecordI">
+                                        	<div class="leftStudent"><p>GPA Hours:</p></div>
+                                           <div class="rightStudent"><p id="GPAHoursStudentInfo"></p></div>
+                                        </div>
+                                        <div class="lineStudentRecordI">
+                                        	 <div class="leftStudent"><p>Grade Points:</p></div>
+                                            <div class="rightStudent"><p id="gradePointStudentInfo"></p></div>
+                                        </div>
+                                 </div> <!-- end lineStudentRecord -->
+                                 
+                                 
+                                  <div class="lineStudentRecord">
+                                    	
+                                        <div class="lineStudentRecordI">
+                                        	<div class="leftStudent"><p>GPA:</p></div>
+                                           <div class="rightStudent"><p id="GPAStudentInfo"></p></div>
+                                        </div>
+                                        <div class="lineStudentRecordI">
+                                        	 <div class="leftStudent"><p>Overall Passed:</p></div>
+                                            <div class="rightStudent"><p id="OveralPassedStudentInfo"></p></div>
+                                        </div>
+                                 </div> <!-- end lineStudentRecord -->
+                                 
+                                 
+                                 
+                                  <div class="lineStudentRecord">
+                                    	
+                                        <div class="lineStudentRecordI">
+                                        	<div class="leftStudent"><p>Transfer Hours:</p></div>
+                                           <div class="rightStudent"><p id="TransferHourStudentInfo"></p></div>
+                                        </div>
+                                       <div class="lineStudentRecordI">
+                                        	<div class="leftStudent"><p>Cum Points:</p></div>
+                                           <div class="rightStudent"><p id="CumulativePointStudentInfo"></p></div>
+                                        </div>
+                                 </div> <!-- end lineStudentRecord -->
+                                 
+                                 
+                                 
+                                
+                              </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="closeEditModal">Close</button>
+                     		
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+		          <!-- modal -->
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 			
+     <!-- Modal WINDOWS TO EDIT MEMBERS -->
+                    <div class="modal fade" id="attachFormModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header" id="HeaderModal">
+                            <button type="button" class="close" data-dismiss="modal" id="CloseModalFormAttach">
+                            			<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel"> Attach Form <i class="fa fa-file-pdf-o"></i></h4>
+                          </div>
+                              <div class="modal-body">
+                          
+                          			<h4 class="LabelStudentInfo" id="LabelAttachForm"></h4>
+                                     <hr class="LabelStudentInfo">
+                                     <br>
+                                    
+                                   <div class="lineAttachFormModal">
+                                  	 <input type="text"  class="form-control" id="descriptionForm" placeholder="Description" >
+                               	  </div> 
+                                  
+                                  <div class="lineAttachFormModal">
+                                  	 <input type="file" id="fileToUpload" >
+                               	  </div>
+                                 
+                           <div class="progress" id="contProgressBar">
+                          <div class="progress-bar progress-bar-striped"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
+                            <p id="perecentageBar"></p>
+                          </div>
+                        </div>
+                                 
+                          			
+                                    
+                                    <!-- HERE START THE SECTION TO DISPLAY FORMS ATTACH OF EACH STUDENTS -->
+                                 
+                                 
+                                 	 <p class="LabelStudentInfo">Forms attached</p>
+                                     <hr class="LabelStudentInfo">
+                                     <br>
+                                 
+                                 
+                                 <div id="BoxFormStudents">
+                                 
+                                 	<!-- display info with ajax -->
+                                   
+                                 </div> <!-- end BoxFormStudents-->
+                                 
+                                 
+                                 
+                                    
+                                   
+                              </div>
+                          <div class="modal-footer">
+                         	   <input type="hidden" id="Student_Id">
+                            <button type="button" class="btn btn-danger" id="SubmitForm">Submit</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="closeEditModal">Close</button>
+                     		
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+		          <!-- modal -->
+ 
+ 
+ 			   	  <!-- /////////////////////////////////////////////////// -->
+                <!--------------   MODAL WINDOWS TO DISPLAY PDF AND DOC DOCUMENTS ------>
+                <!-- /////////////////////////////////////////////////// -->
 
-  </body>
-<!-- InstanceEnd --></html>
+
+				 <div id="ModalDialog">
+                 
+                    <div id="boxDialog">
+                            <a href="javascript:closeModal()">Close X</a>
+                            <br>
+                            <iframe src="" id="iframe"></iframe>
+                    </div>
+               </div> 
+
+
+
+
+			
+ 			
+     <!-- Modal WINDOWS TO ADD NOTES FOR EACH STUDENTS -->
+                    <div class="modal" id="AddNotesStudentModal" tabindex="-1" role="dialog" aria-labelledby="AddNotesStudentModal" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header" id="HeaderModal">
+                            <button type="button" class="close" data-dismiss="modal">
+                            			<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title"> Student Notes <i class="fa fa-comments"></i></h4>
+                          </div>
+                          
+                              <div class="modal-body">
+                              
+                              <div class="addCommentBox">
+                              	<textarea class="textAreaComments" placeholder="Add new Comment here ...." id="StudentComment"></textarea>
+                                 <input type="hidden" id="Student_Id_Comment">
+                            		<button type="button" class="btn btn-danger maringBtn" id="btnAddComment">Add Comment</button>
+                              </div>
+                              
+                              <hr>
+                          			
+                                    <table class="table table-striped">
+                                    	<tbody>
+                                        	<thead>
+                                            	<tr>
+                                               	<td>Note</td>
+                                                	<td>Date</td>
+                                                  <td>Action</td>
+                                               </tr>
+                                            </thead>
+                                            <tbody id="bodyStudentsComments">
+                                          
+                                                 <!-- Commens display by ajax -->
+                                         
+                                            </tbody>
+                                            
+                                        </tbody>
+                                    </table>
+                                
+                          		 	
+                                   
+                              </div>
+                          <div class="modal-footer">
+                         	 
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                     		
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+		          <!-- modal -->
+ 
+
+
+
+
+
+
+
+	<?php	include('include.php');	?>
+	
+	<!--script for this page-->
+	<script src="assets/js/Wizard_Functions/Students.js"></script> 

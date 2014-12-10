@@ -1,5 +1,5 @@
 <?php
-
+require_once(dirname(__FILE__)).'/../core/init.php';
 /*
 
 Table "ToDoList"
@@ -12,8 +12,6 @@ ToDo_Urgent
 User_Id
 
 */
-
-require_once('Connection.php');
 
 
 class ToDoList

@@ -1,462 +1,156 @@
 <?php
-session_start();
-if (!isset($_SESSION['Email'])) {
-	
-	header("Location: Login.php");
-	
-}else if(isset($_SESSION['Email'])){
-	
-	if (time() - $_SESSION['Time'] > 1800) {
-		// session started more than 30 minutes ago
-		header("Location: Login.php?ExpiredSession");
-	
-	}else{
-		
-		session_regenerate_id(true);    // change session ID for the current session and invalidate old session ID
-		$_SESSION['Time'] = time();  // update creation time
-		$_SESSION['Email'] = $Email;
-		
-	}
-	
-}
+include('header.php');
 ?>
+<section id="main-content">
+	<section class="wrapper">      
+	
+	<!--main content start-->
 
-
-<!DOCTYPE html>
-<html lang="en"><!-- InstanceBegin template="/Templates/Wizard_template.dwt" codeOutsideHTMLIsLocked="false" -->
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Juan Huertas-Fernandez">
-    
-    <!-- InstanceBeginEditable name="doctitle" -->
-    <title>Wizard</title>
-    <!-- InstanceEndEditable -->
-   
-    <link href="assets/img/icon/logo.ico" rel="icon" type="image/x-icon"/>
-     <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    
-    <!--external css-->
-    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="assets/js/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />  
-    
-    <!-- Custom styles for this template -->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/style-responsive.css" rel="stylesheet">
-
-    
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  <!-- InstanceBeginEditable name="head" -->
-  <!-- InstanceEndEditable -->
-  </head>
-
-  <body>
-
-  <section id="container" >
-      <!-- **********************************************************************************************************************************************************
-      TOP BAR CONTENT & NOTIFICATIONS
-      *********************************************************************************************************************************************************** -->
-      <!--header start-->
-      <header class="header black-bg">
-              <div class="sidebar-toggle-box">
-                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-              </div>
-            <!--logo start-->
-            <a href="http://www.temple.edu/" class="logo" target="_blank"><img src="assets/img/logoHeader.png" alt="logo Temple" id="logoHeader1"><img src="assets/img/logoHeader2.png" alt="logo Temple" id="logoHeader2"></a>
-            <!--logo end-->
-            <div class="nav notify-row" id="top_menu">
-                <!--  notification start -->
-                <ul class="nav top-menu">
-                    <!-- settings start -->
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-                            <i class="fa fa-tasks"></i>
-                            <span class="badge bg-theme">4</span>
-                        </a>
-                        <ul class="dropdown-menu extended tasks-bar">
-                            <div class="notify-arrow notify-arrow-green"></div>
-                            <li>
-                                <p class="green">You have 4 pending tasks</p>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">DashGum Admin Panel</div>
-                                        <div class="percent">40%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">Database Update</div>
-                                        <div class="percent">60%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">Product Development</div>
-                                        <div class="percent">80%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">Payments Sent</div>
-                                        <div class="percent">70%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
-                                            <span class="sr-only">70% Complete (Important)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="external">
-                                <a href="#">See All Tasks</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- settings end -->
-                    <!-- inbox dropdown start-->
-                    <li id="header_inbox_bar" class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-                            <i class="fa fa-envelope-o"></i>
-                            <span class="badge bg-theme">5</span>
-                        </a>
-                        <ul class="dropdown-menu extended inbox">
-                            <div class="notify-arrow notify-arrow-green"></div>
-                            <li>
-                                <p class="green">You have 5 new messages</p>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="assets/img/ui-zac.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Zac Snider</span>
-                                    <span class="time">Just now</span>
-                                    </span>
-                                    <span class="message">
-                                        Hi mate, how is everything?
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="assets/img/ui-divya.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Divya Manian</span>
-                                    <span class="time">40 mins.</span>
-                                    </span>
-                                    <span class="message">
-                                     Hi, I need your help with this.
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="assets/img/ui-danro.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Dan Rogers</span>
-                                    <span class="time">2 hrs.</span>
-                                    </span>
-                                    <span class="message">
-                                        Love your new Dashboard.
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <span class="photo"><img alt="avatar" src="assets/img/ui-sherman.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Dj Sherman</span>
-                                    <span class="time">4 hrs.</span>
-                                    </span>
-                                    <span class="message">
-                                        Please, answer asap.
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">See all messages</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- inbox dropdown end -->
+            <!-- page start-->
+            <div class="row mt">
+                <aside class="col-lg-3 mt">
+                    <h4><i class="fa fa-calendar"></i>  Add Events </h4>
+                    <hr class="hrUpdateCSV">
+                    <div class="addEventBox">
                     
-                    
-                </ul>
-                <!--  notification end -->
-            </div>
-            
-            <div class="top-menu">
-            	<ul class="nav pull-right top-menu" id="userMenu">
-                
-                  <!-- inbox dropdown start-->
-                    <li id="header_inbox_bar" class="dropdown">
-                    	
-                        
-                            <a data-toggle="dropdown" class="dropdown-toggle linkUser" href="index.html#">
-                               <img src="assets/img/juan.png" alt="avatar" />
-                            </a>
-                            
+                    		<div class="lineEvents">
+                           <input type="text" class="form-control" placeholder="Title" id="TitleEventInput"> 
+                         </div> <!-- end lineEvents -->
+                         <div class="lineEvents">
+                           <input type="text" class="form-control" placeholder="Description" id="DescriptionEventInput">
+                         </div> <!-- end lineEvents -->
+                         
+                         
+                         <div class="lineEvents">
                           
-                        
-                        
-                        <ul class="dropdown-menu boxMenuUser">
+                         	 <div class='input-group date' id='dateEvent'>
+                                <input type='text' class="form-control" id="EventDateInput" data-date-format="YYYY/MM/DD" placeholder="Date"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                                      
+                          
+                          
+                         </div> <!-- end lineEvents -->
                          
-									<li class="userLiMenu">
-										<a href="#">
-											<i class="fa fa-user"></i>
-											<span>Profile</span>
-										</a>
-									</li>
-									<li class="userLiMenu">
-										<a href="ajax/page_messages.html" class="ajax-link">
-											<i class="fa fa-envelope"></i>
-											<span>Messages</span>
-										</a>
-									</li>
-									
-									<li class="userLiMenu">
-										<a href="ajax/calendar.html" class="ajax-link">
-											<i class="fa fa-tasks"></i>
-											<span>Tasks</span>
-										</a>
-									</li>
-									
-									<li class="userLiMenu">
-										<a href="assets/PHP/functionLogin.php?logout">
-											<i class="fa fa-power-off"></i>
-											<span>Logout</span>
-										</a>
-									</li>
-					  </ul>
-                                
-                                
-                                
-                                
-                    </li> <!-- end dropdown -->
-                    <li id="UserNameTopHeader">Welcolme, Juanito </li>
-            	</ul>
-                 
-        
-                  
+                         
+                          <div class="lineEvents">
+                          
+                          
+                          <div class='input-group date' id='EventStart'>
+                            <input type='text' class="form-control" id="EventStartInput" placeholder="Event Start" readonly/>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
+                            </span>
+                        </div>
+                                   
+                         </div> <!-- end lineEvents -->
+                          <div class="lineEvents">
+                           
+                           
+                           
+                            <div class='input-group date' id='EventEnd'>
+                                <input type='text' class="form-control" id="EventEndInput" placeholder="Event End" readonly/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
+                                </span>
+                            </div>
+ 
+                           
+                           
+                         </div> <!-- end lineEvents -->
+                    	    <div class="lineEvents">
+                           <input type="url" class="form-control" placeholder="Url" id="UrlEventInput">
+                         </div> <!-- end lineEvents -->
+                         <div class="lineEventsInline">
+                           <div class="CheckboxDiv"><input type="checkbox" id="publicEventInput"></div><div><p>Public Event</p> </div>
+                         </div> <!-- end lineEvents -->
+                    
+                    		<div class="lineEvents">
+                            
+                            <!-- HIDE INPUT TO STORE THE USER_ID -->
+                            <input type="hidden" value="<?php if(isset($UserObject['TU_ID'])){echo $UserObject['TU_ID'];}?>" id="EventTuIdInput">
+                            <input type="button" class="btn btn-danger" value="Create Event" id="BtnEventInsert">
+                         </div> <!-- end lineEvents -->
+                        
+                    
+                    </div>
+                </aside>
+                <aside class="col-lg-9 mt">
+                    <section class="panel">
+                        <div class="panel-body">
+                            <div id="calendar" class="has-toolbar"></div>
+                        </div>
+                    </section>
+                </aside>
             </div>
-            
-             
+            <!-- page end-->
+	<!--main content end-->	
+	</section>
+</section>
+	
+    
+    
+    
+      <!-- /////////////////////////////////////////////////// -->
+        <!--------------   MODAL WINDOWS TO DISPLAY MESSAGES ------>
+        <!-- /////////////////////////////////////////////////// -->
+
+
+	 <!-- Modal Windows to display messages -->
+		          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal3" class="modal fade">
+		              <div class="modal-dialog">
+		                  <div class="modal-content">
+		                      <div class="modal-header">
+		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                          <h4 class="modal-title">Wizard Alert</h4>
+                                  <a data-toggle="modal" id="modalExpiration" href="login.html#myModal3"></a>
+		                      </div>
+                               <div class="modal-body" id="bodyAlertMessageBox">
+		                          <h4 class="modal-dialog" id="boxMessageModal"></h4>
+								
+		                      </div>
+		                      <div class="modal-footer" id="footerModalSessionExpired">
+		                          <button data-dismiss="modal" class="btn btn-default" type="button" id="BtnExpirationModal">OK</button>
+								
+		                      </div>
+		                      
+		                  </div>
+		              </div>
+		          </div>
+		          <!-- modal -->
                 
-          
-    </header>
-      <!--header end-->
-      
-      <!-- **********************************************************************************************************************************************************
-      MAIN SIDEBAR MENU
-      *********************************************************************************************************************************************************** -->
-      <!--sidebar start-->
-      <aside>
-          <div id="sidebar"  class="nav-collapse ">
-              <!-- sidebar menu start-->
-              <ul class="sidebar-menu" id="nav-accordion">
-              	  	
-                  <li class="mt">
-                      <a class="active" href="index.php">
-                          <i class="fa fa-home"></i>
-                          <span>Home</span>
-                      </a>
-                  </li>
+                
+                <!-- /////////////////////////////////////////////////// -->
+                <!--------------   MODAL WINDOWS TO DISPLAY LOADING ICON ------>
+                <!-- /////////////////////////////////////////////////// -->
 
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-desktop"></i>
-                          <span>Administrative</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="Students.php">Students</a></li>
-                          <li><a  href="Faculties.php">Faculties</a></li>
-                         
-                      </ul>
-                  </li>
-
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-cogs"></i>
-                          <span>Organizer</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="Calendar.php">Calendar</a></li>
-                          <li><a  href="Todo_list.php">Todo List</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-book"></i>
-                          <span>Programs</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="Undegrad_Programs.php">Undegraduate Programs</a></li>
-                          <li><a  href="Graduate_Programs.php">Graduate Programs</a></li>
-                          <li><a  href="International.php">International</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-tasks"></i>
-                          <span>Forms</span>
-                      </a>
-                      <ul class="sub">
-                      	  <li><a  href="Form_display.php">Display Forms</a></li>
-                          <li><a  href="Form_Create.php">Create Form</a></li>
-                          <li><a  href="Form_PDF.php">Update PDF's Form</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="UpdateData.php" >
-                          <i class="fa fa-cog"></i>
-                          <span>Update Data</span>
-                      </a>
-                  </li>
-                  
-
-              </ul>
-              <!-- sidebar menu end-->
-          </div>
-      </aside>
-      <!--sidebar end-->
-      
-      <!-- **********************************************************************************************************************************************************
-      MAIN CONTENT
-      *********************************************************************************************************************************************************** -->
-      <!--main content start-->
-      <section id="main-content"><!-- InstanceBeginEditable name="Content Session wrapper" -->
-      <section class="wrapper">
-      
-      
-      
-      
-      
-      
-      
-          
-          
-          
-          <h3><i class="fa fa-angle-right"></i> Calendar</h3>
-              <!-- page start-->
-              <div class="row mt">
-                  <aside class="col-lg-3 mt">
-                      <h4><i class="fa fa-angle-right"></i> Events </h4>
-                      <div id="external-events">
-                          <div class="external-event label label-theme">My Event 1</div>
-                          <div class="external-event label label-success">My Event 2</div>
-                          <div class="external-event label label-info">My Event 3</div>
-                          <div class="external-event label label-warning">My Event 4</div>
-                          <div class="external-event label label-danger">My Event 5</div>
-                          <div class="external-event label label-default">My Event 6</div>
-                          <div class="external-event label label-theme">My Event 7</div>
-                          <div class="external-event label label-info">My Event 8</div>
-                          <div class="external-event label label-success">My Event 9</div>
-                               <div class="external-event label label-theme">My Event 1</div>
-                          <div class="external-event label label-success">My Event 2</div>
-                          <div class="external-event label label-info">My Event 3</div>
-                          <div class="external-event label label-warning">My Event 4</div>
-                          <div class="external-event label label-danger">My Event 5</div>
-                          <div class="external-event label label-default">My Event 6</div>
-                          <div class="external-event label label-theme">My Event 7</div>
-                          <div class="external-event label label-info">My Event 8</div>
-                          <div class="external-event label label-success">My Event 9</div>
-                          <p class="drop-after">
-                              <input type="checkbox" id="drop-remove">
-                              Remove After Drop
-                          </p>
-                      </div>
-                  </aside>
-                  <aside class="col-lg-9 mt">
-                      <section class="panel">
-                          <div class="panel-body">
-                              <div id="calendar" class="has-toolbar"></div>
-                          </div>
-                      </section>
-                  </aside>
-              </div>
-              <!-- page end-->
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      </section>
-      <!-- InstanceEndEditable --></section>
-
-      <!--main content end-->
-      <!--footer start-->
-      <footer class="site-footer">
-          <div class="text-center">
-              2014 - Wizard
-              <a href="index.html#" class="go-top">
-                  <i class="fa fa-angle-up"></i>
-              </a>
-          </div>
-    </footer>
-      <!--footer end-->
-  </section>
-
-      <!-- js placed at the end of the document so the pages load faster -->
-    <script src="assets/js/jquery-1.11.1.js"></script>
-    <script src="assets/js/jquery-ui-1.9.2.custom.min.js"></script>
-	<script src="assets/js/fullcalendar/fullcalendar.min.js"></script>    
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="assets/js/jquery.scrollTo.min.js"></script>
-    <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
-
-
-    <!--common script for all pages-->
-    <script src="assets/js/common-scripts.js"></script>
-
-    <!--script for this page-->
-	<script src="assets/js/calendar-conf-events.js"></script> 
-     
+ 				<div class="modal-body" id="loading"><img src="assets/img/ajax-loader.gif" /></div> 
   
-
-  </body>
-<!-- InstanceEnd --></html>
+  
+    
+    
+    
+    
+    
+	
+	<?php	include('include.php');	?>
+	
+    <!--script for this page-->
+	
+    <script src="assets/js/moment.js"></script> 
+    <script src="assets/js/bootstrap-datetimepicker.min.js"></script> 
+    <script src="assets/js/calendar-conf-events.js"></script>
+    <script type="text/javascript">
+	  $(function () {
+				$('#dateEvent').datetimepicker({
+					pickTime: false
+				});
+				$('#EventStart').datetimepicker({
+					pickDate: false
+				});
+				$('#EventEnd').datetimepicker({
+                    pickDate: false
+                });
+				
+			});
+	</script>

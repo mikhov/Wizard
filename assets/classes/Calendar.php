@@ -1,5 +1,5 @@
 <?php
-
+require_once(dirname(__FILE__)).'/../core/init.php';
 /*
 database Calendar
 
@@ -18,7 +18,7 @@ User_Id
 
 */
 
-require_once('Connection.php');
+require_once('DB.php');
 
 
 class Calendar

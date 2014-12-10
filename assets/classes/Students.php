@@ -1,14 +1,13 @@
 <?php
 
-
-
-require_once('Connection.php');
+require_once(dirname(__FILE__)).'/../core/init.php';
 
 
 class Students
 {
 	
-	private $Students;
+	private $_db;
+	
 	
 	public
 	  $Student_Id,
@@ -235,14 +234,17 @@ class Students
 	  $Cohort_10_Code,
 	  $Cohort_10_Descroption,
 	  $Cohort_10_Effective_Term;
+	  
 	
 	
-		public function __construct()
-		{
-			$this->Students = new Connection();
-			$this->Students = $this->Students->ConnectDB();
 	
-		}
+	
+	
+	public function __construct(){
+		$this->_db = new DB();
+		$this->_db = $this->_db ->Connect();
+	}
+	
 		
 		
 		public function Insert_Students(
@@ -478,7 +480,7 @@ class Students
 		return "Emty Row";
 	}else {
 	
-			$checkIdStudent = $this->Students->prepare("SELECT * FROM Student WHERE Tu_Id = ?");
+			$checkIdStudent = $this->_db->prepare("SELECT * FROM Student WHERE Tu_Id = ?");
 			$checkIdStudent->bindParam(1,$Tu_Id);
 			$checkIdStudent->execute();
 			
@@ -732,7 +734,7 @@ class Students
 			
 			$N = 1;
 	
-	  $query_Insert = $this->Students->prepare($sql);
+	  $query_Insert = $this->_db->prepare($sql);
 	  $query_Insert->bindParam($N++, $Term_Code);
 	  $query_Insert->bindParam($N++,$Name_Last);
 	  $query_Insert->bindParam($N++,$Name_First);
@@ -1205,7 +1207,7 @@ public function Update_Students($Term_Code,$Name_Last,$Name_First,
 			$U = 1;
 		
 	
-	   $query_Update = $this->Students->prepare($sqlUpdate);
+	   $query_Update = $this->_db->prepare($sqlUpdate);
 	  $query_Update->bindParam($U++, $Term_Code);
 	  $query_Update->bindParam($U++,$Name_Last);
 	  $query_Update->bindParam($U++,$Name_First);
@@ -1440,10 +1442,161 @@ public function Update_Students($Term_Code,$Name_Last,$Name_First,
 		
 		
 		
+
 		
 		
+		public function checkUser($Email_Type_Address){
+		
+			$query_checkEmail = $this->_db->prepare("SELECT * FROM Student WHERE Email_Type_Address = ?");
+			$query_checkEmail->bindParam(1,$Email_Type_Address);
+			$query_checkEmail->execute();
+			
+			if($query_checkEmail->rowCount() == 1){
+				//echo 1;
+				return 1;
+			}else{
+				//echo 0;
+				return 0;
+			}
+			
+		} // End checkUser
+		
+	
+	
+	
+		public function get_Student_Info_by_Email($Email_Type_Address)
+			{
+				
+				$query_getUser = $this->_db->prepare("SELECT * FROM Student WHERE Email_Type_Address = ?");
+				$query_getUser->bindParam(1, $Email_Type_Address);
+				$query_getUser->execute();
+				  
+				  if($query_getUser->rowCount() != 0){
+					
+						$result_Students = $query_getUser->fetch(PDO::FETCH_ASSOC);
+					
+						$this->Student_Id						=	$result_Students['Student_Id']; 
+						$this->Name_Last						=	$result_Students['Name_Last']; 
+						$this->Name_First						=	$result_Students['Name_First']; 
+						$this->Tu_Id							=	$result_Students['Tu_Id']; 
+						$this->Expected_Graduation_Date 		=	$result_Students['Expected_Graduation_Date']; 
+						$this->Email_Type_Address				=	$result_Students['Email_Type_Address']; 
+						$this->Gender							=	$result_Students['Gender']; 
+						$this->Address_Street_Line1				=	$result_Students['Address_Street_Line1']; 
+						$this->Address_City						=	$result_Students['Address_City']; 
+						$this->Address_Zip						=	$result_Students['Address_Zip']; 
+						$this->Phone_Number						=	$result_Students['Phone_Number']; 
+						$this->Hours_Attempted_UG				=	$result_Students['Hours_Attempted_UG']; 
+						$this->GPA_Hours_UG						=	$result_Students['GPA_Hours_UG']; 
+						$this->Grade_Points_UG					=	$result_Students['Grade_Points_UG']; 
+						$this->GPA_UG							=	$result_Students['GPA_UG']; 
+						$this->Overall_passed_UG				=	$result_Students['Overall_passed_UG']; 
+						$this->Transfer_Hours_UG				=	$result_Students['Transfer_Hours_UG']; 
+						$this->Cumulative_Credits_UG			=	$result_Students['Cumulative_Credits_UG']; 
+						$this->Cumulative_Quality_Points_UG		=	$result_Students['Cumulative_Quality_Points_UG']; 
+						$this->Hours_Attempted_G				=	$result_Students['Hours_Attempted_G']; 
+						$this->Hours_Passed_G					=	$result_Students['Hours_Passed_G']; 
+						$this->GPA_Hours_G						=	$result_Students['GPA_Hours_G']; 
+						$this->Grade_Points_G					=	$result_Students['Grade_Points_G']; 
+						$this->GPA_G							=	$result_Students['GPA_G']; 
+						$this->Overral_Hours_Passed_G			=	$result_Students['Overral_Hours_Passed_G']; 
+						$this->Transfer_Hours_G					=	$result_Students['Transfer_Hours_G']; 
+						$this->Cumulative_Credits_G				=	$result_Students['Cumulative_Credits_G']; 
+						$this->Cumulative_Quality_Points_G		=	$result_Students['Cumulative_Quality_Points_G']; 
+						$this->REgistration_Status_Date			=	$result_Students['REgistration_Status_Date']; 
+						$this->Hours_Registerd					=	$result_Students['Hours_Registerd']; 
+						$this->College_1_Description			=	$result_Students['College_1_Description']; 
+						$this->Program_1						=	$result_Students['Program_1']; 
+		
+				  }else{
+					  
+					  return 0;
+					  }
+				
+			
+				
+			}  // end function get_User_Info_by_Email($Email);
+
+
+
+
+
+
+
+	
+	
+	
+		public function get_Student_Id_Email($Email_Type_Address)
+			{
+				
+				$query_getUser = $this->_db->prepare("SELECT * FROM Student WHERE Email_Type_Address = ?");
+				$query_getUser->bindParam(1, $Email_Type_Address);
+				$query_getUser->execute();
+				  
+				  if($query_getUser->rowCount() != 0){
+					
+						$result_Students = $query_getUser->fetch(PDO::FETCH_ASSOC);
+						return $this->Student_Id = $result_Students['Student_Id']; 
+				 }else{
+					 
+					  return 0;
+					  }
+				
+			
+				
+			}  // end function get_User_Info_by_Email($Email);
+
+
+
+
+
+	
+		
+	public function sendEmail($Email,$Student_Id,$User_Type){
+			
+	
+		$results = array();  //This will hold the info to display later with Json
+		$Url_Link = "http://web-huertas.com/work/programs/Wizard_Juan/RequestPassword.php?Email_Request=".$Email."&StudentId=".$Student_Id."&User_Type=".$User_Type;
+	
+			try{
+				 
+							 $to = $Email;
+							 $subject = "Wizard Password Request";
+							 $headersEmail = 'From: Wizard@temple.edu';
+							 $body = wordwrap("Please click on the following link to create a password:
+											   $Url_Link");
+												
+							if( mail($to, $subject, $body, $headersEmail)){
+								return 1;
+							}else{
+								return 0;
+								}
+							
+			
+				
+			
+				
+			}catch(PDOExecption $e) { 
+			
+					return 0;
+			} 	
+				
+			
+		
+			
+		} // End function
+		
+		
+
+	
 	
 	
 	
 	
 } // End of my Users Class
+
+
+
+//$Student = new Students();
+//$Student->get_Student_Id_Email('tue89164@temple.edu');
+// echo $Student->Email_Type_Address;
